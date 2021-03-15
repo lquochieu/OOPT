@@ -1,2 +1,1 @@
-# TTH
-The first git
+#This is homewok of OOLT.
