@@ -15,7 +15,7 @@ public class dialog {
         BufferedImage image = null;
         try {
             File f = null;
-            f = new File("D:\\TTH\\Java\\4.jpg"); //https://drive.google.com/file/d/1KLq86F5glVmlJcFIeHSFLAJ29oXl0SvJ/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\4.jpg"); //https://drive.google.com/file/d/1KLq86F5glVmlJcFIeHSFLAJ29oXl0SvJ/view?usp=sharing
             image = ImageIO.read(f);
         } catch (IOException e) {
             System.out.println(e);
@@ -49,7 +49,7 @@ public class dialog {
         BufferedImage image = null;
         try {
             File f = null;
-            f = new File("D:\\TTH\\Java\\5.jpg"); //https://drive.google.com/file/d/1aHeWNWXGKICAxh2aISZVLIfWL79k-lpH/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\5.jpg"); //https://drive.google.com/file/d/1aHeWNWXGKICAxh2aISZVLIfWL79k-lpH/view?usp=sharing
             image = ImageIO.read(f);
         } catch (IOException e) {
             System.out.println(e);
@@ -102,7 +102,7 @@ public class dialog {
         BufferedImage image = null;
         try {
             File f = null;
-            f = new File("D:\\TTH\\Java\\6.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\6.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
             image = ImageIO.read(f);
         } catch(IOException e)
         {
@@ -147,13 +147,13 @@ public class dialog {
         BufferedImage image = null, image1 = null, image2 = null, image3 = null;
         try {
             File f = null;
-            f = new File("D:\\TTH\\Java\\3.jpg"); // https://drive.google.com/file/d/1bhrLK6PNo-XhpPvolMixVw4ivhURtW4K/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\3.jpg"); // https://drive.google.com/file/d/1bhrLK6PNo-XhpPvolMixVw4ivhURtW4K/view?usp=sharing
             image = ImageIO.read(f);
-            f = new File("D:\\TTH\\Java\\rem.jpg"); // https://drive.google.com/file/d/1ZwtT4sEvdaDEUN0HI5r-B3XWFizaS7kG/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\rem.jpg"); // https://drive.google.com/file/d/1ZwtT4sEvdaDEUN0HI5r-B3XWFizaS7kG/view?usp=sharing
             image1 = ImageIO.read(f);
-            f = new File("D:\\TTH\\Java\\7.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\7.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
             image2 = ImageIO.read(f);
-            f = new File("D:\\TTH\\Java\\8.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
+            f = new File("D:\\TTH\\app code\\Java\\TTH\\Lab 01\\8.jpg"); //https://drive.google.com/file/d/1c2UA8r2v_WC2XuZv_rA6HroDZhTay0HL/view?usp=sharing
             image3 = ImageIO.read(f);
         } catch (IOException e) {
             System.out.println(e);
