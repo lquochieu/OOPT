@@ -79,7 +79,7 @@ public class MyDate {
 		this.year_index = Double.parseDouble(this.years); 
 	}
 	public String getDate() {
-		Date = day + " " + month + " " + years;
+		Date = month + " " + day + " " + years;
 		return Date;
 	}
 
@@ -144,7 +144,7 @@ public class MyDate {
                         }
                     }
                 }
-                day = e[i];
+                day = f[i];
                 return 1;
             }
            System.out.print("1");
