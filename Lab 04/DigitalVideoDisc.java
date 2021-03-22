@@ -6,6 +6,19 @@ public class DigitalVideoDisc {
 	private String director;
 	private int length;
 	private float cost;
+	private int status;
+	public void setStatus(int a) {
+		if(a == 1) {
+			status = a; 
+		}
+		else {
+			status = 0;
+		}
+	}
+	
+	public int getStatus() {
+		return status;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -48,4 +61,5 @@ public class DigitalVideoDisc {
 		this.length = length;
 		this.cost = cost;
 	}
+
 }

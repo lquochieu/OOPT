@@ -17,72 +17,108 @@ public class Aims {
 	 * @param args
 	 */
 
-	@SuppressWarnings("unchecked")
-	public static <string> void main(String[] args) {
-		Order anOrder = new Order();
-		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King");
-		DateTest check = new DateTest();
-		LinkedList<DigitalVideoDisc> list = new LinkedList<DigitalVideoDisc>();
 
+	public static void main(String[] args) {
+		Order anOrder = new Order();
+		DateTest check = new DateTest();
+		DateUltils cmp = new DateUltils();
+		LinkedList<DigitalVideoDisc> lis = new LinkedList<DigitalVideoDisc>();
+		LinkedList<DigitalVideoDisc>[] list = new LinkedList[10];
+		LinkedList<MyDate> date = new LinkedList<MyDate>();
+		for(int i = 0; i < 10; ++i) {
+		list[i] = new LinkedList<DigitalVideoDisc>();
+		}
 		String day, month, years;
+		int u;
+		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King");
 		dvd1.setCategory("Animation");
 		dvd1.setCost(19.95f);
 		dvd1.setDirector("Roger Allers");
 		dvd1.setLength(87);
-		anOrder.addDigitalVideoDisc(dvd1);
-		list.add(dvd1);
-		
-		
-		
-		MyDate date1 = new MyDate();
-		String a = dvd1.getTitle();
-		date1.setDay(a, 1);
-		date1.setMonth(a, 1);
-		date1.setYears(a, 1);
-		check.addHistory(date1.getDate(), dvd1.getTitle(), 1);
-		
+		dvd1.setStatus(1);
+		list[0].add(dvd1);
+		lis.add(dvd1);
+
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars");
 		dvd2.setCategory("Science Fiction");
 		dvd2.setCost(24.95f);
 		dvd2.setDirector("George Lucas");
-		dvd2.setLength(124);
-		anOrder.addDigitalVideoDisc(dvd2);
-		list.add(dvd2);
+		dvd2.setStatus(1);
+		lis.add(dvd2);
+		list[0].add(dvd2);
+
 		
-		MyDate date2 = new MyDate();
-	    a = dvd2.getTitle();
-		date2.setDay(a, 1);
-		date2.setMonth(a, 1);
-		date2.setYears(a, 1);
-		check.addHistory(date2.getDate(), dvd2.getTitle(), 1);
-		
+		MyDate date1 = new MyDate();
+		u = 1;
+		while(u != 0) {
+		date1.setDay(1);
+		date1.setMonth(1);
+		date1.setYears(1);
+		if(date1.checkMonth() == 0 || date1.checkDay() == 0)
+		{
+			JOptionPane.showMessageDialog(null, "Date isn't correct.. Please enter again!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			u = 0;
+		}
+		}
+		date.add(date1);
+		anOrder.date_order(list[0], date1, 1);
+
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin");
 		dvd3.setCategory("Animation");
 		dvd3.setCost(18.99f);
 		dvd3.setDirector("John Musker");
 		dvd3.setLength(90);
-		anOrder.addDigitalVideoDisc(dvd1);
-		list.add(dvd3);
-		
-		MyDate date3 = new MyDate();
-		a = dvd3.getTitle();
-		date3.setDay(a, 1);
-		date3.setMonth(a, 1);
-		date3.setYears(a, 1);
-		check.addHistory(date3.getDate(), dvd3.getTitle(), 1);
+		dvd3.setStatus(1);
+		lis.add(dvd3);
+		list[1].add(dvd3);
 
-		anOrder.removeDigitalVideoDisc(dvd2);
-		list.remove(1);
+		MyDate date3 = new MyDate();;
+		u = 1;
+		while(u != 0) {
+		date3.setDay(1);
+		date3.setMonth(1);
+		date3.setYears(1);
+		if(date3.checkMonth() == 0 || date3.checkDay() == 0)
+		{
+			JOptionPane.showMessageDialog(null, "Date isn't correct.. Please enter again!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			u = 0;
+		}
+		}
+		anOrder.date_order(list[1], date3, 1);
+		date.add(date3);
+
+		DigitalVideoDisc dvd4 = new DigitalVideoDisc(dvd2.getTitle());
+		dvd4.setCost(dvd2.getCost());;
+		dvd4.setStatus(0);
+		list[2].add(dvd4);
+		lis.remove(1);
 		MyDate date4 = new MyDate();
-		a = dvd2.getTitle();
-		date4.setDay(a, 0);
-		date4.setMonth(a, 0);
-		date4.setYears(a, 0);
-		check.addHistory(date4.getDate(), dvd2.getTitle(), 0);
+		u = 1;
+		while(u != 0) {
+		date4.setDay(0);
+		date4.setMonth(0);
+		date4.setYears(0);
+		if(date4.checkMonth() == 0 || date4.checkDay() == 0 || check.check_remove(date4, date1) == 0)
+		{
+			JOptionPane.showMessageDialog(null, "Date isn't correct.. Please enter again!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			u = 0;
+		}
+		}
+		date.add(date4);
+		anOrder.date_order(list[2], date4, 0);
+		cmp.sortingDate(date, list);
 		
-		anOrder.addDigitalVideoDisc(list);
+		
+		anOrder.addDigitalVideoDisc(lis);
 		System.out.print("Total cost is: ");
 		System.out.println(anOrder.totalCost() + "\n");
+		check.addHistory(date, list);
 		check.checkHistory();
 		System.exit(0);
 	}
