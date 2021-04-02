@@ -11,8 +11,8 @@ public class DateTest {
     public int check_remove(MyDate date1, MyDate date2)
    	{
    		//Date1 is date bought disc, date2 is date removed disc
-   		if ((date1.getYear_index() - date2.getYear_index()) * 365
-   		+ (date1.getMonth_index() - date2.getMonth_index()) * 30 + date1.getDay_index()
+   		if ((date1.getYear_index() - date2.getYear_index()) * 400
+   		+ (date1.getMonth_index() - date2.getMonth_index()) * 31 + date1.getDay_index()
    		- date2.getDay_index() > 0) {
    			return 1;
    		} else {

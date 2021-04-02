@@ -25,6 +25,9 @@ public class Aims {
 	 */
 
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Order anOrder = new Order();
 		DateTest check = new DateTest();
@@ -45,8 +48,11 @@ public class Aims {
 		dvd1.setStatus(1);
 		list[0].add(dvd1);
 		lis.add(dvd1);
-		System.out.println("The Lion: " + dvd1.search("The Lion"));
+		System.out.println(dvd1.search("The Lion"));
+		System.out.println(dvd1.search("The King Lion"));
+		System.out.println(dvd1.search("The Lion Lion"));
 
+		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars");
 		dvd2.setCategory("Science Fiction");
 		dvd2.setCost(24.95f);
@@ -99,31 +105,19 @@ public class Aims {
 		anOrder.date_order(list[1], date3, 1);
 		date.add(date3);
 		
+		anOrder.addDigitalVideoDisc(dvd1, dvd2);
+		lis.add(dvd1);
+		lis.add(dvd2);
+		anOrder.addDigitalVideoDisc(dvd2, dvd3);
+		lis.add(dvd2);
+		lis.add(dvd3);
+		
+		
 		int rd = dvd3.getLuckyItem(lis.size());
 		lis.get(rd).setCost(0);
 		
 
-		DigitalVideoDisc dvd4 = new DigitalVideoDisc(dvd2.getTitle());
-		dvd4.setCost(dvd2.getCost());;
-		dvd4.setStatus(0);
-		list[2].add(dvd4);
-		lis.remove(1);
-		MyDate date4 = new MyDate();
-		u = 1;
-		while(u != 0) {
-		date4.setDay(0);
-		date4.setMonth(0);
-		date4.setYears(0);
-		if(date4.checkMonth() == 0 || date4.checkDay() == 0 || check.check_remove(date4, date1) == 0)
-		{
-			JOptionPane.showMessageDialog(null, "Date isn't correct.. Please enter again!", "ERROR!", JOptionPane.ERROR_MESSAGE);
-		}
-		else {
-			u = 0;
-		}
-		}
-		date.add(date4);
-		anOrder.date_order(list[2], date4, 0);
+		
 		cmp.sortingDate(date, list);
 		
 		System.out.println("Disc " + lis.get(rd).getTitle() + " free!");

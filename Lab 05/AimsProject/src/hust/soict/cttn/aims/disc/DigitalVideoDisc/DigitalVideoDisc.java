@@ -19,12 +19,16 @@ public class DigitalVideoDisc {
 	}
 	public boolean search(String title) {
 		String[] spaceStrings = title.split(" ");
+		String[] tt = this.title.trim().split(" ");
 		int b = 0; //b check title, b = 1 while spaceStrings[i] exist in title
+		if(spaceStrings.length != tt.length) return false;
+		else {
 		for(int i = 0; i < spaceStrings.length; ++i) {
 			int a = spaceStrings[i].length();
 			b = 0;
-			for(int j = 0; j <= this.title.length() - a; ++j) {
-				if(spaceStrings[i].equals(this.title.substring(j, j + a))) {
+			for(int j = 0; j < tt.length; ++j) {
+				if(spaceStrings[i].equals(tt[j])) {
+					tt[j] = ""; 
 					b = 1;
 					break;
 				}
@@ -32,6 +36,7 @@ public class DigitalVideoDisc {
 			if(b == 0 ) {
 				return false;
 			}
+		}
 		}
 		if(b == 1) {
 			return true;
