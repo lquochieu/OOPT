@@ -1,27 +1,31 @@
-package hust.soict.cttn.aims.disc.DigitalVideoDisc;
+package hust.soict.cttn.aims.media;
 
 import java.util.Random;
 
-public class DigitalVideoDisc {
+public class DigitalVideoDisc extends Media {
 	
 	private String title;
 	private String category;
 	private String director;
 	private int length;
 	private float cost;
-	private int status; 
-	private boolean lucky = false;
-	Random generator = new Random();
 	
-	public int getLuckyItem(int rd) {
-		int a = generator.nextInt(rd);
-		return a;
+	private int nums;
+	public void setNums(int num) {
+		this.nums = this.nums + num;
+		if(this.nums < 0) {
+			this.nums = 0;
+		}
+	}
+	
+	public int getNums() {
+		return nums;
 	}
 	public boolean search(String title) {
 		String[] spaceStrings = title.split(" ");
 		String[] tt = this.title.trim().split(" ");
 		int b = 0; //b check title, b = 1 while spaceStrings[i] exist in title
-		if(spaceStrings.length != tt.length) return false;
+		if(spaceStrings.length > tt.length) return false;
 		else {
 		for(int i = 0; i < spaceStrings.length; ++i) {
 			int a = spaceStrings[i].length();
@@ -45,18 +49,7 @@ public class DigitalVideoDisc {
 			return false;
 		}
 	}
-	public void setStatus(int a) {
-		if(a == 1) {
-			status = a; 
-		}
-		else {
-			status = 0;
-		}
-	}
 	
-	public int getStatus() {
-		return status;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -88,11 +81,11 @@ public class DigitalVideoDisc {
 		this.cost = cost;
 	}
 	public DigitalVideoDisc(String title) {
-		super();
+		super(title);
 		this.title =title;
 	}
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
+		super(director);
 		this.title = title;
 		this.category = category;
 		this.director = director;
