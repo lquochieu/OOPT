@@ -59,15 +59,18 @@ public class Aims {
 		}
 	public static void TheLionKing() {
 		System.out.println("1. The Lion King\n" +"Category: Animation\n"+"Cost: 19.95$\n"
-                +"Director: Roger Allers\n"+"Lenght: 87 minutes\n");
+                +"Director: Roger Allers\n"+"Lenght: 87 minutes");
+		System.out.println("Id: " + dvd1.getId());
 	}
 	public static void StarWars() {
 		System.out.println("2. Star Wars\n" +"Category: Science Fiction\n"+"Cost: 24.95$\n"
-                +"Director: George Lucas\n"+"Lenght: 124 minutes\n");
+                +"Director: George Lucas\n"+"Lenght: 124 minutes");
+		System.out.println("Id: " + dvd2.getId());
 	}
 	public static void Aladin() {
 		System.out.println("3. Aladin\n" + "Category: Animation\n" + "Cost: 18.99$" 
-                + "Director: John Musker\n" + "Length: 90 minutes\n");
+                + "Director: John Musker\n" + "Length: 90 minutes");
+		System.out.println("Id: " + dvd3.getId());
 	}
 	public static void showItem() {
 		System.out.println("Please choose items you want!");
@@ -131,19 +134,19 @@ public class Aims {
 		dvd1.setCost(19.95f);
 		dvd1.setDirector("Roger Allers");
 		dvd1.setLength(87);
-		
+		dvd1.setId(1234);
 		
 		dvd2.setCategory("Science Fiction");
 		dvd2.setCost(24.95f);
 		dvd2.setDirector("George Lucas");
 		dvd2.setLength(90);
-		
+		dvd2.setId(2345);
 		
 		dvd3.setCategory("Animation");
 		dvd3.setCost(18.99f);
 		dvd3.setDirector("John Musker");
 		dvd3.setLength(90);
-		
+		dvd3.setId(3456);
 		
 		int menu = -1;
 		
@@ -164,6 +167,7 @@ public class Aims {
 				int item = -1;
 				while(item != 5) {
 					showItem();
+					
 					input = new Scanner(System.in);
 					item = input.nextInt();
 					if(item == 0) {
@@ -231,6 +235,7 @@ public class Aims {
 				int item = -1;
 				while(item != 5) {
 					showItem();
+					System.out.println("Enter id item what you want to delete!");
 					input = new Scanner(System.in);
 					item = input.nextInt();
 					if(item == 0) {
@@ -242,7 +247,7 @@ public class Aims {
 						input = new Scanner(System.in);
 						item = input.nextInt();
 						}
-					if(item == 1 || item == 2 || item == 3) {
+					if(item == 1234 || item == 2345 || item == 3456) {
 						System.out.println("Enter the numbers of disk!");
 						//Enter nums
 						//////////////////
@@ -252,7 +257,7 @@ public class Aims {
 						input = new Scanner(System.in);
 						nums = input.nextInt();
 						date1 = new MyDate();
-							if(item == 1) {
+							if(item == 1234) {
 								if(dvd1.getNums() - nums < 0 ) {
 									error = true;
 									System.out.println("Error! The numbers of disk less than " + nums);
@@ -272,7 +277,7 @@ public class Aims {
 									}
 								}
 							}
-							else if(item == 2) {
+							else if(item == 2345) {
 								if(dvd2.getNums() - nums < 0 ) {
 									error = true;
 									System.out.println("Error! The numbers of disk less than " + nums);

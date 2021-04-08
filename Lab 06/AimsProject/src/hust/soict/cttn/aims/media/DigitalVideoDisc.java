@@ -8,6 +8,14 @@ public class DigitalVideoDisc extends Media {
 	private String category;
 	private String director;
 	private int length;
+	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	private float cost;
 	
 	private int nums;
