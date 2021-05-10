@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class solveEquations {
+public class solveFunction {
     public void function1()
     {
         Scanner input = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class solveEquations {
             {
                 if(c == 0)
                 {
-                    System.out.println("")
+                    System.out.println("");
                 }
             }
         }

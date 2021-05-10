@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-public class 0 {
+public class ok {
     public static void main(String[] args) {
-        Scanner input = new Scanner(String.in);
+        Scanner input = new Scanner(System.in);
         String s;
         s = input.nextLine();
         if(s == "1")

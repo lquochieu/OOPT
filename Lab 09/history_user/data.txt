@@ -1,0 +1,56 @@
+05 10 2021 
+
+Title: You gifted, i am too
+Category: Soft skill
+Cost: 10.0$
+Lenght: 200 pages
+Id: 2000 
+
+
+Title: Anohana
+Category: Romcom
+Cost: 7.0$
+Lenght: 150 pages
+Id: 2001 
+
+
+Title: Pokemon
+Category: Adventure
+Cost: 5.0$
+Lenght: 20 pages
+Id: 3000 
+
+
+Title: Conan
+Category: Detective
+Cost: 5.5$
+Lenght: 20 pages
+Id: 3001 
+
+
+You got free a random item is 'You gifted, i am too'
+The total is: 24.5$
+
+-----------------------------------------------------------
+
+05 10 2021 
+
+Title: You gifted, i am too
+Category: Soft skill
+Cost: 10.0$
+Lenght: 200 pages
+Id: 2000 
+
+
+Title: Anohana
+Category: Romcom
+Cost: 7.0$
+Lenght: 150 pages
+Id: 2001 
+
+
+You got free a random item is 'Anohana'
+The total is: 54.0$
+
+-----------------------------------------------------------
+
