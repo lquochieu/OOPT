@@ -6,6 +6,7 @@ package hust.soict.cttn.aims.media;
 	protected String director;
 	protected String author;
 	protected String artist;
+	protected String url;
 	protected float cost;
 	protected int length;
 	protected int id;
@@ -62,10 +63,15 @@ package hust.soict.cttn.aims.media;
 			return (this.nums - ((Media) obj).getNums())*100;
 		}
 	}
+	
+	public String getUrl() {
+		return this.url;
+	}
 	public abstract void setCategory(String category);
 	public abstract void setTitle(String title);
 	public abstract void setCost(float cost);
 	public abstract void setLength(int lenght);
 	public abstract void setId(int id);
 	public abstract void setNums(int nums);
+	public abstract void setUrl(String url);
 }

@@ -141,4 +141,9 @@ public class Book extends Media{
 		// TODO Auto-generated method stub
 		this.nums = nums;
 	}
+	@Override
+	public void setUrl(String url) {
+		// TODO Auto-generated method stub
+		this.url = url;
+	}
 }

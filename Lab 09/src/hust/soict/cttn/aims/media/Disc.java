@@ -80,6 +80,12 @@ public class Disc extends Media {
 			return false;
 		}
 	}
+
+	@Override
+	public void setUrl(String url) {
+		// TODO Auto-generated method stub
+		this.url = url;
+	}
 	
 	
 }

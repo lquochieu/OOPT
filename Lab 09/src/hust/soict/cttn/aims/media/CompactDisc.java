@@ -1,6 +1,7 @@
 package hust.soict.cttn.aims.media;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CompactDisc extends Disc implements Playable{
 	private String artist;
@@ -13,8 +14,11 @@ public class CompactDisc extends Disc implements Playable{
 	}
 	
 	public void play() {
-			System.out.println("Playing DVD: " + track.getTitle());
-			System.out.println("DVD length: " + track.getLength());
+			java.util.Iterator iter = tracks.iterator();
+			while(iter.hasNext()) {
+				Track track = (Track) iter.next();
+				track.play();
+			}
 	}
 	
 	public boolean checkTracks() {
@@ -27,7 +31,16 @@ public class CompactDisc extends Disc implements Playable{
 	}
 	public void addTrack() {
 		track = new Track(title, length);
-		tracks.add(track);
+		boolean a = false;
+		for(int i = 0; i < tracks.size(); ++i) {
+			if(this.title.equals(tracks.get(i).getTitle())) {
+				a = true;
+			}
+		}
+		if(!a) {
+			tracks.add(track);
+		}
+		
 	}
 	public void removeTrack() {
 		for(int i = 0; i < tracks.size(); ++i) {

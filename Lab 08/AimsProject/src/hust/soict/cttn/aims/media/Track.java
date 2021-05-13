@@ -6,8 +6,8 @@ public class Track implements Playable, Comparable{
 	private int length;
 	
 	public void play() {
-		System.out.println("Playing DVD: " + this.getTitle());
-		System.out.println("DVD length: " + this.getLength());
+		System.out.println("Playing Disc: " + this.getTitle());
+		System.out.println("Disc length: " + this.getLength());
 		}
 	public String getTitle() {
 		return title;
@@ -34,16 +34,8 @@ public class Track implements Playable, Comparable{
 	@Override
 	public int compareTo(Object obj) {
 		// TODO Auto-generated method stub
-		if(!(obj instanceof CompactDisc))
-			return 0;
-		else {
+		
 			Track newTrack = (Track) obj;
-			if(newTrack.getTitle() == this.title) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		}
+			return this.getTitle().compareTo(newTrack.getTitle());
 	}
 }

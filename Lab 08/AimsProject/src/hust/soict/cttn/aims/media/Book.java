@@ -59,8 +59,8 @@ public class Book extends Media{
 	}
 	
 	public boolean search(String title) {
-		String[] spaceStrings = title.split(" ");
-		String[] tt = this.title.trim().split(" ");
+		String[] spaceStrings = title.toLowerCase().split(" ");
+		String[] tt = this.title.trim().toLowerCase().split(" ");
 		int b = 0; //b check title, b = 1 while spaceStrings[i] exist in title
 		if(spaceStrings.length > tt.length) return false;
 		else {

@@ -1,0 +1,6 @@
+If you can't run javafx, you can follow the steps below:
+
+First: right click "Run" then choose one by one:
+Run configure -> Arguments -> VM Arguments:
+--module-path Path --add-modules javafx.controls,javafx.fxml
+Ex: --module-path D:\TTH\tool\javafx-sdk-16\lib --add-modules javafx.controls,javafx.fxml

@@ -1,15 +1,19 @@
 package hust.soict.cttn.aims.media;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class DigitalVideoDisc extends Disc implements Playable{
-	
-	
+public class DigitalVideoDisc extends Disc implements Playable, Comparable{
+	ArrayList<Track> tracks = new ArrayList<Track>();
+	Track track;
 	
 	public void play() {
-		System.out.println("Playing DVD: " + this.getTitle());
-		System.out.println("DVD length: " + this.getLength());
+		java.util.Iterator iter = tracks.iterator();
+		while(iter.hasNext()) {
+			Track track = (Track) iter.next();
+			track.play();
 		}
+	}
 	
 	
 	public void setDirector(String directory) {
@@ -28,5 +32,27 @@ public class DigitalVideoDisc extends Disc implements Playable{
 		this.cost = cost;
 	}
 	
-	
+	public void addTrack() {
+		track = new Track(title, length);
+		tracks.add(track);
+	}
+	public void removeTrack() {
+		for(int i = 0; i < tracks.size(); ++i) {
+			if(tracks.get(i).getTitle().equals(this.title)) {
+				tracks.remove(i);
+				break;
+			}
+		}
+	}
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public void setTracks(ArrayList<Track> tracks) {
+		this.tracks = tracks;
+	}
+
+	public void setTrack(Track track) {
+		this.track = track;
+	}
 }

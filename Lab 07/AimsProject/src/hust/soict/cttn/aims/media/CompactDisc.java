@@ -56,5 +56,6 @@ public class CompactDisc extends Disc implements Playable{
 	public ArrayList<Track> getTracks() {
 		return tracks;
 	}
+	
 
 }

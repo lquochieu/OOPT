@@ -476,6 +476,7 @@ public class Aims {
 					for(int i = 0; i < book.size(); ++i) {
 						if(e.getActionCommand().equals("add" + (i + 1))) {
 							try {
+								
 								addProduct(addBookTxt[i], book.get(i));
 								
 							} catch (Exception e1) {
@@ -495,6 +496,7 @@ public class Aims {
 					for(int i = 0; i < book.size(); ++i) {
 						if(e.getActionCommand().equals("sub" + (i + 1))) {
 							try {
+								
 								removeProduct(addBookTxt[i], book.get(i));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -604,6 +606,7 @@ public class Aims {
 					for(int i = 0; i < cd.size(); ++i) {
 						if(e.getActionCommand().equals("add" + (i + 1))) {
 							try {
+							
 								addProduct(addcdTxt[i], cd.get(i));
 								
 							} catch (Exception e1) {
@@ -623,6 +626,7 @@ public class Aims {
 					for(int i = 0; i < cd.size(); ++i) {
 						if(e.getActionCommand().equals("sub" + (i + 1))) {
 							try {
+								
 								removeProduct(addcdTxt[i], cd.get(i));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -640,6 +644,7 @@ public class Aims {
 					for(int i = 0; i < cd.size(); ++ i) {
 						if(e.getActionCommand().equals("cd " + (i+1))) {
 							try {
+								
 								DemoDisplay(cdStr[i], cd.get(i));
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
@@ -751,6 +756,7 @@ public class Aims {
 					for(int i = 0; i < dvd.size(); ++i) {
 						if(e.getActionCommand().equals("add" + (i + 1))) {
 							try {
+								
 								addProduct(adddvdTxt[i], dvd.get(i));
 								
 							} catch (Exception e1) {
@@ -770,6 +776,7 @@ public class Aims {
 					for(int i = 0; i < dvd.size(); ++i) {
 						if(e.getActionCommand().equals("sub" + (i + 1))) {
 							try {
+								
 								removeProduct(adddvdTxt[i], dvd.get(i));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -983,6 +990,48 @@ public class Aims {
 	        panel.add(filterText, BorderLayout.CENTER);
 	        JButton button = new JButton("Filter");
 	        panel.add(button, BorderLayout.EAST);
+	        
+	        
+	        BufferedImage biDisplay = null;
+	        Image imgDisplay= null;
+	        ImageIcon iconDisplay = null;
+	        try {
+				biDisplay = ImageIO.read(new File("label_item\\playButton.png"));
+				imgDisplay = biDisplay.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+				iconDisplay = new ImageIcon(imgDisplay);
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	        JButton displayButton = new JButton();
+	        displayButton.setIcon(iconDisplay);
+	        
+	        displayButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					boolean a = false;
+			        for(int i = 0; i < cd.size(); ++i) {
+			        	if(cd.get(i).getNums() > 0) {
+			        		a = true;
+			        		cd.get(i).addTrack();
+			        		cd.get(i).play();
+			        	}
+			        }
+			        for(int i = 0; i < dvd.size(); ++i) {
+			        	if(dvd.get(i).getNums() > 0) {
+			        		a = true;
+			        		dvd.get(i).addTrack();
+			        		dvd.get(i).play();
+			        	}
+			        }
+			        if(!a) {
+			        	JOptionPane.showMessageDialog(null, "You don't have any item cd or dvd to display", "System", JOptionPane.INFORMATION_MESSAGE);
+			        }
+				}
+			});
 	        button.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                String text = filterText.getText();
@@ -997,10 +1046,12 @@ public class Aims {
 	                }
 	            }
 	        });
+	    disPlayFrame.add(displayButton, BorderLayout.EAST);
 	    disPlayFrame.add(panel, BorderLayout.NORTH);    
 		disPlayFrame.add(displayPanel);
 		disPlayFrame.setPreferredSize(new Dimension(1650, 825));
 		disPlayFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		disPlayFrame.repaint();
 		disPlayFrame.pack();
 		disPlayFrame.setVisible(true);
 		

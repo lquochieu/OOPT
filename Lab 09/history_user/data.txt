@@ -54,3 +54,17 @@ The total is: 54.0$
 
 -----------------------------------------------------------
 
+05 10 2021 
+
+Title: Pokemon
+Category: Adventure
+Cost: 5.0$
+Lenght: 20 pages
+Id: 3000 
+
+
+You got free a random item is 'Pokemon'
+The total is: 5.0$
+
+-----------------------------------------------------------
+

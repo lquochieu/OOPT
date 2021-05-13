@@ -1,0 +1,60 @@
+05 13 2021 
+
+Title: The Lion King
+Category: Animation
+Cost: 19.95$
+Lenght: 87 pages
+Id: 1000 
+
+
+The total is: 59.85000228881836$
+
+-----------------------------------------------------------
+
+05 13 2021 
+
+Title: The Lion King
+Category: Animation
+Cost: 19.95$
+Lenght: 87 pages
+Id: 1000 
+
+
+Title: Star Wars
+Category: Science Fiction
+Cost: 24.95$
+Lenght: 90 pages
+Id: 1001 
+
+
+Title: Aladin
+Category: Animation
+Cost: 18.99$
+Lenght: 90 pages
+Id: 1002 
+
+
+The total is: 153.69000816345215$
+
+-----------------------------------------------------------
+
+05 13 2021 
+
+Title: You gifted, i am too
+Category: Soft skill
+Cost: 10.0$
+Lenght: 200 pages
+Id: 2000 
+
+
+Title: Anohana
+Category: Romcom
+Cost: 7.0$
+Lenght: 150 pages
+Id: 2001 
+
+
+The total is: 41.0$
+
+-----------------------------------------------------------
+

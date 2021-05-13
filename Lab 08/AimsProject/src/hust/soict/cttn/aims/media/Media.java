@@ -9,14 +9,14 @@ package hust.soict.cttn.aims.media;
 	protected float cost;
 	protected int length;
 	protected int id;
-	protected int nums;
-	
+	protected int nums = 0;
 	public int getId() {
 		return id;
 	}
 	public String getDirector() {
 		return director;
 	}
+
 	Media(String title) {
 		// TODO Auto-generated constructor stub
 		this.title = title;
