@@ -543,8 +543,8 @@ public class Aims {
 			imageIconcd[i] = new ImageIcon(dimgcd[i]);
 			cdIcon[i].setIcon(imageIconcd[i]);
 			cdTxt[i] = new JTextArea();
-			cdTxt[i].setText(cd.get(i).getTitle() + "\nCategory: " + cd.get(i).getCategory() + "\nAuthor: "
-						+ cd.get(i).getArtist() +"\nCost: " + cd.get(i).getCost() + "$\nLenght: " + cd.get(i).getLength() + " pages\nId: " + cd.get(i).getId());
+			cdTxt[i].setText(cd.get(i).getTitle() + "\nCategory: " + cd.get(i).getCategory() + "\nẢtist: "
+						+ cd.get(i).getArtist() +"\nCost: " + cd.get(i).getCost() + "$\nLenght: " + cd.get(i).getLength() + " minutes\nId: " + cd.get(i).getId());
 			cdTxt[i].setEditable(false);
 			listgc.gridx = 0;
 			listgc.gridy =  24 + 8*i;
@@ -694,8 +694,8 @@ public class Aims {
 			imageIcondvd[i] = new ImageIcon(dimgdvd[i]);
 			dvdIcon[i].setIcon(imageIcondvd[i]);
 			dvdTxt[i] = new JTextArea();
-			dvdTxt[i].setText(dvd.get(i).getTitle() + "\nCategory: " + dvd.get(i).getCategory() + "\nAuthor: "
-						+ dvd.get(i).getDirector() +"\nCost: " + dvd.get(i).getCost() + "$\nLenght: " + dvd.get(i).getLength() + " pages\nId: " + dvd.get(i).getId());
+			dvdTxt[i].setText(dvd.get(i).getTitle() + "\nCategory: " + dvd.get(i).getCategory() + "\nDirector: "
+						+ dvd.get(i).getDirector() +"\nCost: " + dvd.get(i).getCost() + "$\nLenght: " + dvd.get(i).getLength() + " minutes\nId: " + dvd.get(i).getId());
 			dvdTxt[i].setEditable(false);
 			
 			listgc.gridx = 0;
