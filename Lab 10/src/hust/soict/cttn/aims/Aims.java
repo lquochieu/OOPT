@@ -13,6 +13,8 @@ import java.awt.Label;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -38,8 +40,10 @@ import java.util.regex.PatternSyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -109,6 +113,7 @@ public class Aims {
 	static Book b2 = new Book("Anohana");
 	static CompactDisc cd1 = new CompactDisc("Pokemon");
 	static CompactDisc cd2 = new CompactDisc("Conan");
+	static LinkedList<String> item = new LinkedList<String>();
 	
 	static LinkedList<MyDate> date = new LinkedList<MyDate>();
 	static LinkedList<LinkedList<MyDate>> mDate = new LinkedList<LinkedList<MyDate>>();
@@ -164,61 +169,90 @@ public class Aims {
 		dvd1.setCategory("Animation");
 		dvd1.setCost(19.95f);
 		dvd1.setDirector("Roger Allers");
-		dvd1.setLength(87);
+		dvd1.setLength(88);
 		dvd1.setId(1000);
+		for(int i = 1; i <= 4; ++i) {
+			dvd1.addTrack(dvd1.getTitle() + " part " + i, 21 + i/2);
+		}
 		dvd.add(dvd1);
 		testMedia.addMedia(dvd1);
+		
+		item.add(dvd1.getTitle());
 		
 		dvd2.setCategory("Science Fiction");
 		dvd2.setCost(24.95f);
 		dvd2.setDirector("George Lucas");
 		dvd2.setLength(90);
+		for(int i = 1; i <= 4; ++i) {
+			dvd2.addTrack(dvd2.getTitle() + " part " + i, 22 + (i-1)/2);
+		}
 		dvd2.setId(1001);
 		dvd.add(dvd2);
 		testMedia.addMedia(dvd2);
+		item.add(dvd2.getTitle());
+
 		
 		dvd3.setCategory("Animation");
 		dvd3.setCost(18.99f);
 		dvd3.setDirector("John Musker");
 		dvd3.setLength(90);
 		dvd3.setId(1002);
+		for(int i = 1; i <= 4; ++i) {
+			dvd3.addTrack(dvd3.getTitle() + " part " + i, 20 + i);
+		}
 		dvd.add(dvd3);
 		testMedia.addMedia(dvd3);
-		
+		item.add(dvd3.getTitle());
+
 		b1.setCategory("Soft skill");
 		b1.setCost(10f);
 		author.add("Adamm Khoo");
-		b1.setAuthor(author);
+		for(int i = 0; i < author.size(); ++i) {
+			b1.addAuthor(author.get(i));
+		}
 		b1.setLength(200);
 		b1.setId(2000);
 		book.add(b1);
 		testMedia.addMedia(b1);
-		
+		item.add(b1.getTitle());
+
 		b2.setCategory("Romcom");
 		b2.setCost(7f);
 		author.clear();
 		author.add("Sinkai Makoto");
-		b2.setAuthor(author);
+		for(int i = 0; i < author.size(); ++i) {
+			b2.addAuthor(author.get(i));
+		}
 		b2.setLength(150);
 		b2.setId(2001);
 		book.add(b2);
 		testMedia.addMedia(b2);
-		
+		item.add(b2.getTitle());
+
 		cd1.setCategory("Adventure");
 		cd1.setCost(5f);
 		cd1.setArtist("Hidenori Kusaka");
 		cd1.setLength(20);
 		cd1.setId(3000);
+		for(int i = 1; i <= 2; ++i) {
+			cd1.addTrack(cd1.getTitle() + " part " + i, 10);
+		}
 		cd.add(cd1);
 		testMedia.addMedia(cd1);
-		
+		item.add(cd1.getTitle());
+
 		cd2.setCategory("Detective");
 		cd2.setCost(5.5f);
 		cd2.setArtist("Aoyama Gosho");
 		cd2.setLength(20);
 		cd2.setId(3001);
+		for(int i = 1; i <= 2; ++i) {
+			cd2.addTrack(cd2.getTitle() + " part " + i, 10);
+		}
 		cd.add(cd2);
 		testMedia.addMedia(cd2);
+		item.add(cd2.getTitle());
+
 		mDate.add(date);
 		login();
 		register();
@@ -488,14 +522,10 @@ public class Aims {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(checkOrder) {
+	
 					listPanel.repaint();
 					listFrame.pack();
 					listFrame.setVisible(true);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "You need create new order to start buy item", "System", JOptionPane.INFORMATION_MESSAGE);
-				}
 				
 			}
 		});
@@ -505,17 +535,14 @@ public class Aims {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkOrder) {
+				
 					try {
 						displayProduct();
 					} catch (PlayerException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "You need create new order to start buy item", "System", JOptionPane.INFORMATION_MESSAGE);
-				}
+				
 
 			}
 		});
@@ -586,14 +613,22 @@ public class Aims {
 		listPanel.setLayout(new GridBagLayout());
 		JPanel searchPanel = new JPanel();
 		JLabel searLabel = new JLabel("Search ");
-		JTextField searchTextField = new JTextField(20);
 		JButton searchButton = new JButton("Enter");
 		JButton backButton = new JButton("Back");
 		JPanel southPanel = new JPanel();
+		
+		DefaultComboBoxModel searchComboBoxMode = new DefaultComboBoxModel();
+		searchComboBoxMode.addElement("");
+		for(int i = 0; i < item.size(); ++i) {
+			searchComboBoxMode.addElement(item.get(i));
+		}
+		JComboBox searchComboBox = new JComboBox(searchComboBoxMode);
+		searchComboBox.setEditable(true);
+		JTextField searchTextField = (JTextField) searchComboBox.getEditor().getEditorComponent();
+		
 		searchPanel.add(searLabel);
-		searchPanel.add(searchTextField);
+		searchPanel.add(searchComboBox);
 		searchPanel.add(searchButton);
-
 		listgc.fill = GridBagConstraints.HORIZONTAL;
 		listgc.gridwidth = 3;
 		
@@ -606,7 +641,7 @@ public class Aims {
 		addDvd();
 		
 		BufferedImage cartImng = null;
-		cartImng = ImageIO.read(new File("giohang.png"));
+		cartImng = ImageIO.read(new File("label_item\\giohang.png"));
 		Image dcartImg = cartImng.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		ImageIcon cartImgIcon = new ImageIcon(dcartImg);
 		JButton cartButton = new JButton();
@@ -617,17 +652,14 @@ public class Aims {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkOrder) {
+				
 					try {
 						displayProduct();
 					} catch (PlayerException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "You need create new order to start buy item", "System", JOptionPane.INFORMATION_MESSAGE);
-				}
+				
 			}
 		});
 		
@@ -692,7 +724,7 @@ public class Aims {
 		String[] bookStr = new String[2];
 		BufferedImage[] imgBook = new BufferedImage[2];
 		bookStr[0] = "label_item\\ImGifted.jpg";
-		bookStr[1] = "anohana.jpg";
+		bookStr[1] = "label_item\\anohana.jpg";
 		Image[] dimgBook = new Image[2];
 		ImageIcon[] imageIconBook = new ImageIcon[2];
 		JTextArea[] bookTxt = new JTextArea[2];
@@ -833,8 +865,8 @@ public class Aims {
 			imageIconcd[i] = new ImageIcon(dimgcd[i]);
 			cdIcon[i].setIcon(imageIconcd[i]);
 			cdTxt[i] = new JTextArea();
-			cdTxt[i].setText(cd.get(i).getTitle() + "\nCategory: " + cd.get(i).getCategory() + "\nAuthor: "
-						+ cd.get(i).getArtist() +"\nCost: " + cd.get(i).getCost() + "$\nLenght: " + cd.get(i).getLength() + " pages\nId: " + cd.get(i).getId());
+			cdTxt[i].setText(cd.get(i).getTitle() + "\nCategory: " + cd.get(i).getCategory() + "\nArtist: "
+						+ cd.get(i).getArtist() +"\nCost: " + cd.get(i).getCost() + "$\nLenght: " + cd.get(i).getLength() + " minutes\nId: " + cd.get(i).getId());
 			cdTxt[i].setEditable(false);
 			listgc.gridx = 0;
 			listgc.gridy =  24 + 8*i;
@@ -994,8 +1026,8 @@ public class Aims {
 			imageIcondvd[i] = new ImageIcon(dimgdvd[i]);
 			dvdIcon[i].setIcon(imageIcondvd[i]);
 			dvdTxt[i] = new JTextArea();
-			dvdTxt[i].setText(dvd.get(i).getTitle() + "\nCategory: " + dvd.get(i).getCategory() + "\nAuthor: "
-						+ dvd.get(i).getDirector() +"\nCost: " + dvd.get(i).getCost() + "$\nLenght: " + dvd.get(i).getLength() + " pages\nId: " + dvd.get(i).getId());
+			dvdTxt[i].setText(dvd.get(i).getTitle() + "\nCategory: " + dvd.get(i).getCategory() + "\nDirector: "
+						+ dvd.get(i).getDirector() +"\nCost: " + dvd.get(i).getCost() + "$\nLenght: " + dvd.get(i).getLength() + " minutes\nId: " + dvd.get(i).getId());
 			dvdTxt[i].setEditable(false);
 			
 			listgc.gridx = 0;
@@ -1121,53 +1153,64 @@ public class Aims {
 		listPanel.repaint();
 	}
 	public static void addProduct(JTextField textField ,hust.soict.cttn.aims.media.Media media) throws Exception {
-		if(!anOrder.NextNumbersItemOrders() ) {
-			JOptionPane.showMessageDialog(null, "Full order! Can't add item", "ERROR", JOptionPane.ERROR_MESSAGE);
+		if(checkOrder) {
+			if(!anOrder.NextNumbersItemOrders() ) {
+				JOptionPane.showMessageDialog(null, "Full order! Can't add item", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				for(int i = 0; i < date.size(); ++i) {
+					if(date.get(i).getMedia().getTitle().equals(media.getTitle())) {
+						date.remove(i);
+						break;
+					}
+				}
+				media.setNums(media.getNums() +1);
+				date1 = new MyDate();
+				anOrder.addMedia(media);
+				date1.setMedia(media, media.getNums());
+				textField.setText(media.getNums() + "");
+				c = Calendar.getInstance();
+				dt = c.getTime();
+				
+				date1.setDt(formatter.format(dt));
+				date1.setStatus(1);
+				
+				date.add(date1);
+			}
 		}
 		else {
-			for(int i = 0; i < date.size(); ++i) {
-				if(date.get(i).getMedia().getTitle().equals(media.getTitle())) {
-					date.remove(i);
-					break;
+			JOptionPane.showMessageDialog(null, "You need create new order to add item!", "System", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	public static void removeProduct(JTextField textField ,hust.soict.cttn.aims.media.Media media) throws Exception {
+		if(checkOrder) {
+			if(media.getNums() > 0) {
+				for(int i = 0; i < date.size(); ++i) {
+					if(date.get(i).getMedia().getTitle().equals(media.getTitle())) {
+						date.remove(i);
+						break;
+					}
 				}
+			media.setNums(media.getNums() - 1);
+			anOrder.removeMedia(media);
+			if(media.getNums() > 0) {
+				date1 = new MyDate();
+			    date1.setMedia(media, media.getNums());
 			}
-			media.setNums(media.getNums() +1);
-			date1 = new MyDate();
-			anOrder.addMedia(media);
-			date1.setMedia(media, media.getNums());
 			textField.setText(media.getNums() + "");
 			c = Calendar.getInstance();
 			dt = c.getTime();
 			
 			date1.setDt(formatter.format(dt));
-			date1.setStatus(1);
+			date1.setStatus(0);
 			
 			date.add(date1);
-		}
-	}
-	public static void removeProduct(JTextField textField ,hust.soict.cttn.aims.media.Media media) throws Exception {
-		if(media.getNums() > 0) {
-			for(int i = 0; i < date.size(); ++i) {
-				if(date.get(i).getMedia().getTitle().equals(media.getTitle())) {
-					date.remove(i);
-					break;
-				}
 			}
-		media.setNums(media.getNums() - 1);
-		anOrder.removeMedia(media);
-		if(media.getNums() > 0) {
-			date1 = new MyDate();
-		    date1.setMedia(media, media.getNums());
+		} else {
+			JOptionPane.showMessageDialog(null, "You need create new order to add item!", "System", JOptionPane.INFORMATION_MESSAGE);
+
 		}
-		textField.setText(media.getNums() + "");
-		c = Calendar.getInstance();
-		dt = c.getTime();
 		
-		date1.setDt(formatter.format(dt));
-		date1.setStatus(0);
-		
-		date.add(date1);
-		}
 	}
 	
 	public static void DemoDisplay(String data, hust.soict.cttn.aims.media.Media media) throws IOException {
@@ -1179,7 +1222,7 @@ public class Aims {
 		JLabel picPlayLabel = new JLabel();
 		picPlayLabel.setIcon(imgIconPlay);
 		JTextArea playtxt = new JTextArea();
-		playtxt.setText("Playing Disc: " + media.getTitle() +" \nDisc length: " + media.getLength() +" \n");
+		playtxt.setText("Playing Disc: " + media.getTitle() +" \nDisc length: " + media.getLength() +" minutes\n");
 		playtxt.setEditable(false);
 		JPanel demoPlayPanel = new JPanel();
 		demoPlayPanel.add(picPlayLabel, BorderLayout.CENTER);
@@ -1246,29 +1289,34 @@ public class Aims {
 			}
 			LinkedList<Float> random = new LinkedList<Float>();
 			LinkedList<Integer> rd = new LinkedList<Integer>();
-			if(date.size()>0) {
-				for(int i = 0; i < date.size(); ++i) {
-					if(date.get(i).getMedia().getCost() < cost/10) {
-						random.add(date.get(i).getMedia().getCost());
-						rd.add(i);
+			if(checkOrder) {
+				if(date.size()>0) {
+					for(int i = 0; i < date.size(); ++i) {
+						if(date.get(i).getMedia().getCost() < cost/10) {
+							random.add(date.get(i).getMedia().getCost());
+							rd.add(i);
+						}
 					}
-				}
-				if(random.size() > 0) {
-					Random generator  =new Random();
-					a = generator.nextInt(random.size());	
-					cost -= date.get(rd.get(a)).getMedia().getCost();
+					if(random.size() > 0) {
+						Random generator  =new Random();
+						a = generator.nextInt(random.size());	
+						cost -= date.get(rd.get(a)).getMedia().getCost();
+						freeItem.setText("Congratulation! You get free a random lucky item is '" + date.get(a).getMedia().getTitle()+ "'\n               The total is: " + format.format(cost) + "$");
+						freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));	
+					}
+					else {
+						freeItem.setText("The total is: " + format.format(cost) + "$");
+						freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));	
+					}
 					
-					freeItem.setText("Congratulation! You get free a random lucky item is '" + date.get(a).getMedia().getTitle()+ "'\n               The total is: " + format.format(cost) + "$");
-					freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));	
+					
 				}
-				else {
-					freeItem.setText("The total is: " + format.format(cost) + "$");
-					freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));	
-					throw new PlayerException("If you buy more item, you hava a change get a free item!");
-				}
-				
-				
+			} else {
+
+				freeItem.setText(labelOrder.get(labelOrder.size() - 1));
+				freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));
 			}
+			
 			JTable tableDisplay = new JTable(model);
 			tableDisplay.getColumnModel().getColumn(0).setPreferredWidth(100);
 			String.format("Lead Selection: %d, %d. ",
@@ -1282,25 +1330,27 @@ public class Aims {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						if(date.size() > 0) {
-							if(rd.size()>0) {
-								labelOrder.add("You got free a random lucky item is '" + date.get(rd.get(a)).getMedia().getTitle()+ "'\nThe total is: " + format.format(cost) + "$");
+						if(checkOrder) {
+							if(date.size() > 0) {
+								if(rd.size()>0) {
+									labelOrder.add("You got free a random lucky item is '" + date.get(rd.get(a)).getMedia().getTitle()+ "'\nThe total is: " + format.format(cost) + "$");
+								}
+								else {
+									labelOrder.add("The total is: " + format.format(cost) + "$");
+								}
+								gcDisplay.gridx = 0;
+								gcDisplay.gridy = 3;
+								gcDisplay.anchor = GridBagConstraints.SOUTH;
+								displayPanel.add(freeItem, gcDisplay);
+								disPlayFrame.pack();
+								disPlayFrame.repaint();
+								listFrame.setVisible(false);
+								checkOrder = false;
+								cost = 0;
+								writeDataUser();
+							} else {
+								JOptionPane.showMessageDialog(null, "Let add item to pay!", "System", JOptionPane.INFORMATION_MESSAGE);
 							}
-							else {
-								labelOrder.add("The total is: " + cost + "$");
-							}
-							gcDisplay.gridx = 0;
-							gcDisplay.gridy = 3;
-							gcDisplay.anchor = GridBagConstraints.SOUTH;
-							displayPanel.add(freeItem, gcDisplay);
-							disPlayFrame.pack();
-							disPlayFrame.repaint();
-							listFrame.setVisible(false);
-							checkOrder = false;
-							cost = 0;
-							writeDataUser();
-						} else {
-							JOptionPane.showMessageDialog(null, "Let add item to pay!", "System", JOptionPane.INFORMATION_MESSAGE);
 						}
 						
 					}
@@ -1361,9 +1411,9 @@ public class Aims {
 			        for(int i = 0; i < cd.size(); ++i) {
 			        	if(cd.get(i).getNums() > 0) {
 			        		a = true;
-			        		cd.get(i).addTrack();
 			        		try {
 								cd.get(i).play();
+								cd.get(i).startPlay();
 							} catch (PlayerException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -1373,9 +1423,9 @@ public class Aims {
 			        for(int i = 0; i < dvd.size(); ++i) {
 			        	if(dvd.get(i).getNums() > 0) {
 			        		a = true;
-			        		dvd.get(i).addTrack();
 			        		try {
 								dvd.get(i).play();
+								dvd.get(i).startPlay();
 							} catch (PlayerException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -1532,6 +1582,13 @@ public class Aims {
 		JFrame historyFrame = new JFrame();
 		JScrollPane historyUserScrollPane = new JScrollPane();
 		JTextArea historyUserTxt = new JTextArea();
+		JButton deleteHistory = new JButton("Delete");
+		JButton saveHistory = new JButton("Save");
+		JButton backButton = new JButton("Back");
+		JPanel menuHisitory = new JPanel();
+		menuHisitory.add(backButton);
+		menuHisitory.add(saveHistory);
+		menuHisitory.add(deleteHistory);
 		historyUserScrollPane.setViewportView(historyUserTxt);
 		try {
 			dataUserReader = new BufferedReader(new FileReader(fhisUser));
@@ -1549,10 +1606,100 @@ public class Aims {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
 			}
 		}
+		backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				historyFrame.setVisible(false);
+			}
+		});
+		saveHistory.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean a = true;
+				int i = JOptionPane.showConfirmDialog(null, "Do you want to change history?", "System", JOptionPane.YES_NO_OPTION);
+				if(i == JOptionPane.YES_OPTION) {
+					try {
+						fr = new FileWriter(fhisUser.getAbsoluteFile(), false);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					bfr = new BufferedWriter(fr);
+					try {
+						bfr.write(historyUserTxt.getText());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} finally {
+						if(bfr!=null) {
+							try {
+								bfr.close();
+							} catch (Exception e2) {
+								// TODO: handle exception
+								e2.printStackTrace();
+							}
+						}
+					}
+				}
+				try {
+					fr = new FileWriter(fhisUser.getAbsoluteFile(), true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				bfr = new BufferedWriter(fr);
+			}
+		});
+		
+		deleteHistory.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean a = true;
+				int i = JOptionPane.showConfirmDialog(null, "Do you want to change history?", "System", JOptionPane.YES_NO_OPTION);
+				if(i == JOptionPane.YES_OPTION) {
+					try {
+						fr = new FileWriter(fhisUser.getAbsoluteFile(), false);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					bfr = new BufferedWriter(fr);
+					try {
+						bfr.write("");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} finally {
+						if(bfr!=null) {
+							try {
+								bfr.close();
+							} catch (Exception e2) {
+								// TODO: handle exception
+								e2.printStackTrace();
+							}
+						}
+					}
+				}
+				try {
+					fr = new FileWriter(fhisUser.getAbsoluteFile(), true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				bfr = new BufferedWriter(fr);
+			}
+		});
 		historyFrame.add(historyUserScrollPane);
+		historyFrame.add(menuHisitory, BorderLayout.SOUTH);
 		historyFrame.setPreferredSize(new Dimension(1650, 825));
 		historyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		historyFrame.pack();

@@ -50,8 +50,12 @@ public class Book extends Media{
 		}
 	}
 
-	public ArrayList<String> getAuthor() {
-		return authors;
+	public String getAuthor() {
+		String s = "";
+		for(int i = 0; i < authors.size(); ++i) {
+			s += authors.get(i) + ",";
+		}
+		return s;
 	}
 
 	public void setAuthor(ArrayList<String> author) {

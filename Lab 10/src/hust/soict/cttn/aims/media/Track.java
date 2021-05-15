@@ -3,6 +3,7 @@ package hust.soict.cttn.aims.media;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -14,29 +15,18 @@ import hust.soict.cttn.aims.PlayerException;
 public class Track implements Playable, Comparable{
 	private String title;
 	private int length;
-	
+	private String playDisk ="";
 	public void play() throws PlayerException{
 		if(this.getLength() > 0) {
-			JFrame demoPlay = new JFrame();
-			JLabel displayLabel1 = new JLabel();
-			displayLabel1.setText("Playing Disc: " + title );
-			JLabel displayLabel2 = new JLabel("Disc length: " + length);
-			JPanel demoPlayPanel = new JPanel();
-			demoPlayPanel.setLayout(new BoxLayout(demoPlayPanel, BoxLayout.Y_AXIS));
-			demoPlayPanel.add(displayLabel1);
-			demoPlayPanel.add(displayLabel2);
-			demoPlay.add(demoPlayPanel, BorderLayout.CENTER);
-			demoPlay.setPreferredSize(new Dimension(500, 500));
-			demoPlay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			demoPlay.pack();
-			demoPlay.setVisible(true);
-			System.out.println("Playing disc: " + this.getTitle());
-			System.out.println("Disc length: " + this.getLength());
+			playDisk += "Playing disc: " + this.getTitle() + " \nDisc length: " + this.getLength() + " minutes\n";
 		} else {
 			throw new PlayerException("ERROR: DVD length is non-postitive");
 		}
 		
 		}
+	public String getPlayDisk() {
+		return this.playDisk;
+	}
 	public String getTitle() {
 		return title;
 	}

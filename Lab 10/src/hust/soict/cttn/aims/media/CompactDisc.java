@@ -1,7 +1,14 @@
 package hust.soict.cttn.aims.media;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import hust.soict.cttn.aims.PlayerException;
 
@@ -14,25 +21,38 @@ public class CompactDisc extends Disc implements Playable{
 		this.title = title;
 		// TODO Auto-generated constructor stub
 	}
-	
+	LinkedList<String> playCD = new LinkedList<String>();	
 	public void play() throws PlayerException {
 		if(this.getLength() > 0) {
 			java.util.Iterator iter = tracks.iterator();
-			Track nexTrack;
+			Track nexTrack = null;
 			while(iter.hasNext()) {
 				nexTrack = (Track) iter.next();
 				try {
 					nexTrack.play();
+					playCD.add(nexTrack.getPlayDisk());
 				} catch (Exception e) {
 					throw e;
 				}
 			}
+			
 		} else {
 			throw new PlayerException("ERROR: DVD length is non-postitive");
 		}
 			
 	}
-	
+	public void startPlay() {
+		JFrame playFrame = new JFrame();
+		JTextArea playTxt = new JTextArea();
+		JScrollPane textScrollPane = new JScrollPane(playTxt);
+		for(int i = 0; i < playCD.size(); ++i) {
+			playTxt.setText(playTxt.getText() + playCD.get(i) + " \n\n");
+		}
+		playFrame.add(textScrollPane);
+		playFrame.setPreferredSize(new Dimension(650, 600));
+		playFrame.pack();
+		playFrame.setVisible(true);
+	}
 	public boolean checkTracks() {
 		for(int i = 0; i < tracks.size(); ++i) {
 			if(tracks.get(i).getTitle().equals(this.title)) {
@@ -41,11 +61,11 @@ public class CompactDisc extends Disc implements Playable{
 		}
 		return false;
 	}
-	public void addTrack() {
+	public void addTrack(String title, int length) {
 		track = new Track(title, length);
 		boolean a = false;
 		for(int i = 0; i < tracks.size(); ++i) {
-			if(this.title.equals(tracks.get(i).getTitle())) {
+			if(title.equals(tracks.get(i).getTitle())) {
 				a = true;
 			}
 		}
