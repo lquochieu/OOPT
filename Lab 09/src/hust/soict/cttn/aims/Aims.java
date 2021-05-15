@@ -165,7 +165,9 @@ public class Aims {
 		b1.setCategory("Soft skill");
 		b1.setCost(10f);
 		author.add("Adamm Khoo");
-		b1.setAuthor(author);
+		for(int i = 0; i < author.size(); ++i) {
+			b1.addAuthor(author.get(i));
+		}
 		b1.setLength(200);
 		b1.setId(2000);
 		book.add(b1);
@@ -175,7 +177,9 @@ public class Aims {
 		b2.setCost(7f);
 		author.clear();
 		author.add("Sinkai Makoto");
-		b2.setAuthor(author);
+		for(int i = 0; i < author.size(); ++i) {
+			b2.addAuthor(author.get(i));
+		}
 		b2.setLength(150);
 		b2.setId(2001);
 		book.add(b2);
