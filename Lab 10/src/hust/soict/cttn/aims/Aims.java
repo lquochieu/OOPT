@@ -38,6 +38,7 @@ import java.util.Scanner;
 import java.util.regex.PatternSyntaxException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -136,6 +137,7 @@ public class Aims {
 	static JLabel dvdLabel;
 	static LinkedList<JPanel> listPanels = new LinkedList<JPanel>();
 	static GridBagConstraints listgc = new GridBagConstraints();
+	static GridBagConstraints categorygc = new GridBagConstraints();
 	static Calendar c;
 	static Date dt;
 	static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");;
@@ -332,21 +334,16 @@ public class Aims {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				try {
-					if(!checkShop) {
-						listProduct();
-						checkShop = true;
-					}
-						listFrame.repaint();
-						listFrame.pack();
-						listFrame.setVisible(true);
-						status = false;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				listFrame.repaint();
+				listFrame.pack();
+				listFrame.setVisible(true);
+				status = false;
 				
+			}
+		});
+		loginFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent windowEvent) {
+				System.exit(0);
 			}
 		});
 		incorrectLabel = new JLabel();
@@ -487,16 +484,36 @@ public class Aims {
 		registerFrame.repaint();
 		registerFrame.pack();
 	}
-	public static void welcome() {
-		JButton createButton = new JButton("Create new order");
-		JButton listProductButton = new JButton("List products");
-		JButton displayButton = new JButton("List items");
-		JButton historyButton = new JButton("History order");
-		JButton logoutButton = new JButton("Log out");
+	public static void welcome() throws IOException {		
+		BufferedImage createbfImg = ImageIO.read(new File("label_item\\order.png"));
+		Image createImg = createbfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon createIcon = new ImageIcon(createImg);
+		JButton createButton = new JButton("", createIcon);
+		
+		BufferedImage shopbfImg = ImageIO.read(new File("label_item\\shop1.jpg"));
+		Image shopImg = shopbfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon shopIcon = new ImageIcon(shopImg);
+		JButton listProductButton = new JButton("", shopIcon);
+
+		BufferedImage listbfImg = ImageIO.read(new File("label_item\\giohang.png"));
+		Image listImg = listbfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon listIcon = new ImageIcon(listImg);
+		JButton displayButton = new JButton("", listIcon);
+		
+		BufferedImage historybfImg = ImageIO.read(new File("label_item\\history.jpg"));
+		Image historyImg = historybfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon historyIcon = new ImageIcon(historyImg);
+		JButton historyButton = new JButton("", historyIcon);
+		
+		BufferedImage logoutbfImg = ImageIO.read(new File("label_item\\logout.jpg"));
+		Image logoutImg = logoutbfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon logoutIcon = new ImageIcon(logoutImg);
+		JButton logoutButton = new JButton("", logoutIcon);
+		
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gcWelcome = new GridBagConstraints();
 		panel.setBorder(new EmptyBorder(new Insets(150, 200, 150, 200)));
-		gcWelcome.weightx = 1;
+		gcWelcome.weightx = 0.5;
 		gcWelcome.weighty = 1;
 		gcWelcome.gridx = 0;
 		gcWelcome.gridy = 0;
@@ -504,14 +521,16 @@ public class Aims {
 		gcWelcome.gridx = 1;
 		gcWelcome.gridy = 0;
 		panel.add(listProductButton, gcWelcome);
+
+		gcWelcome.weighty = 1;
 		gcWelcome.gridx = 2;
 		gcWelcome.gridy = 0;
 		panel.add(displayButton, gcWelcome);
 		gcWelcome.gridx = 0;
-		gcWelcome.gridy = 1;
+		gcWelcome.gridy = 2;
 		panel.add(historyButton, gcWelcome);
 		gcWelcome.gridx = 1;
-		gcWelcome.gridy = 1;
+		gcWelcome.gridy = 2;
 		panel.add(logoutButton, gcWelcome);
 		bookPanels[0] = new JPanel();
 		bookPanels[1] = new JPanel();
@@ -582,7 +601,7 @@ public class Aims {
 		});
 		frame.setTitle("Order Management Application");
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		frame.setPreferredSize(new Dimension(600, 600));
+		frame.setPreferredSize(new Dimension(1650, 825));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(false);
@@ -628,12 +647,9 @@ public class Aims {
 		listPanel.setLayout(new GridBagLayout());
 		JPanel searchPanel = new JPanel();
 		JLabel searLabel = new JLabel("Search ");
-		JButton searchButton = new JButton("Enter");
-		JButton backButton = new JButton("Back");
 		JPanel southPanel = new JPanel();
 		JTextField searchTextField = new JTextField(20);
 		JLabel categoryLabel = new JLabel("Category");
-		JButton filterCategoryButton = new JButton("Filter");
 //		DefaultComboBoxModel searchModel = new DefaultComboBoxModel();
 //		searchModel.addElement("");
 //		for(int i = 0; i < item.size(); ++i) {
@@ -642,6 +658,21 @@ public class Aims {
 //		JComboBox searchComboBox = new JComboBox(searchModel);
 //		JTextField searchTextField = (JTextField) searchComboBox.getEditor().getEditorComponent();
 //		searchTextField.setEditable(true);
+		BufferedImage searchbfImg = ImageIO.read(new File("label_item\\search.png"));
+		Image searchImg = searchbfImg.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon searchIcon = new ImageIcon(searchImg);
+		JButton searchButton = new JButton("", searchIcon);
+		
+		BufferedImage filterbfImg = ImageIO.read(new File("label_item\\filter.png"));
+		Image filterImg = filterbfImg.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon filterIcon = new ImageIcon(filterImg);
+		JButton filterCategoryButton = new JButton("", filterIcon);
+		
+		BufferedImage backbfImg = ImageIO.read(new File("label_item\\back.png"));
+		Image backImg = backbfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon backIcon = new ImageIcon(backImg);
+		JButton backButton = new JButton("", backIcon);
+		
 		DefaultComboBoxModel categoryModel = new DefaultComboBoxModel();
 		categoryModel.addElement("All");
 		categoryModel.addElement("Book");
@@ -655,9 +686,7 @@ public class Aims {
 		searchPanel.add(categoryLabel);
 		searchPanel.add(categoryComboBox);
 		searchPanel.add(filterCategoryButton);
-		listgc.fill = GridBagConstraints.HORIZONTAL;
-		listgc.gridwidth = 6;
-		
+        listgc.weighty = 1;		
 		listgc.ipadx = 200;
 		listgc.gridx = 0;
 		listgc.gridy = 0;
@@ -668,7 +697,7 @@ public class Aims {
 		
 		BufferedImage cartImng = null;
 		cartImng = ImageIO.read(new File("label_item\\giohang.png"));
-		Image dcartImg = cartImng.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		Image dcartImg = cartImng.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		ImageIcon cartImgIcon = new ImageIcon(dcartImg);
 		JButton cartButton = new JButton();
 		cartButton.setIcon(cartImgIcon);
@@ -776,7 +805,10 @@ public class Aims {
 		
 		bookLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
 		bookLabel.setForeground(Color.RED);
-		listPanel.add(bookLabel, listgc);
+		categorygc.gridx = 0;
+		categorygc.gridy = 0;
+		categorygc.gridwidth = 2;
+		listPanel.add(bookLabel, categorygc);
 		
 		JLabel[] bookIcon = new JLabel[2];
 		String[] bookStr = new String[2];
@@ -838,10 +870,12 @@ public class Aims {
 			listgc.gridx = 4;
 			listgc.gridy = 5 + 8*i;
 			bookPanels[i].add(subBook[i], listgc);
-			listgc.ipadx = 0;
-			listgc.gridx = 1;
-			listgc.gridy = 6 + 8*i;
-			listPanel.add(bookPanels[i], listgc);
+		    categorygc.gridwidth = 1;
+		    categorygc.weightx = 0.5;
+		    categorygc.gridheight = 1;
+		    categorygc.gridx = i%2;
+		    categorygc.gridy = 1 + i/2;
+			listPanel.add(bookPanels[i], categorygc);
 			
 			addBook[i].addActionListener(new ActionListener() {
 				
@@ -895,13 +929,18 @@ public class Aims {
 		listPanel.repaint();
 	}
 	public static void addCd() throws IOException {
+		
+		int abook = (book.size()+1)/2 + 1;
 		listgc.gridx =  1;
 		listgc.gridy = 22;
 		cdLabel = new JLabel("Compact Disc", JLabel.CENTER);
 		
 		cdLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
 		cdLabel.setForeground(Color.RED);
-		listPanel.add(cdLabel, listgc);
+		categorygc.gridwidth = 2;
+		categorygc.gridx = 0;
+		categorygc.gridy = abook;
+		listPanel.add(cdLabel, categorygc);
 		JLabel[] cdIcon = new JLabel[2];
 		String[] cdStr = new String[2];
 		BufferedImage[] imgcd = new BufferedImage[2];
@@ -977,10 +1016,10 @@ public class Aims {
 			listgc.gridy = 27 + 8*i;
 			cdPanels[i].add(playcd[i], listgc);
 			
-			listgc.ipadx = 0;
-			listgc.gridx = 1;
-			listgc.gridy = 27 + 8*i;
-			listPanel.add(cdPanels[i], listgc);
+			categorygc.gridwidth = 1;
+			categorygc.gridx = i%2;
+			categorygc.gridy = 1 + abook + i/2;
+			listPanel.add(cdPanels[i], categorygc);
 			addcd[i].addActionListener(new ActionListener() {
 				
 				@Override
@@ -1055,13 +1094,17 @@ public class Aims {
 				
 	}
 	public static void addDvd() throws IOException {
+		int bcd = (book.size() +1)/2 + (cd.size()+1)/2 + 2;
 		listgc.gridx =  1;
 		listgc.gridy = 45;
 		dvdLabel = new JLabel("Digital Video Disc", JLabel.CENTER);
 		
 		dvdLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
 		dvdLabel.setForeground(Color.RED);
-		listPanel.add(dvdLabel, listgc);
+		categorygc.gridwidth = 2;
+		categorygc.gridx = 0;
+		categorygc.gridy = bcd;
+		listPanel.add(dvdLabel, categorygc);
 		JLabel[] dvdIcon = new JLabel[3];
 		String[] dvdStr = new String[3];
 		BufferedImage[] imgdvd = new BufferedImage[3];
@@ -1139,8 +1182,10 @@ public class Aims {
 			listgc.gridy = 49 + 8*i;
 			dvdPanels[i].add(playdvd[i], listgc);
 			
-			listgc.gridx = 1;
-			listPanel.add(dvdPanels[i], listgc);
+			categorygc.gridwidth = 1;
+			categorygc.gridx = i %2;
+			categorygc.gridy = 1 + bcd + i/2;
+			listPanel.add(dvdPanels[i], categorygc);
 			adddvd[i].addActionListener(new ActionListener() {
 				
 				@Override
@@ -1295,8 +1340,22 @@ public class Aims {
 		JFrame disPlayFrame = new JFrame();
 		JPanel displayPanel = new JPanel();
 		JLabel freeItem;
-		JButton pay = new JButton("Pay");
-		JButton backButton = new JButton("Back");
+		BufferedImage backbfImg = null;
+		BufferedImage paybfImg = null;
+		try {
+			backbfImg = ImageIO.read(new File("label_item\\back.png"));
+			paybfImg = ImageIO.read(new File("label_item\\pay.png"));
+
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		Image backImg = backbfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon backIcon = new ImageIcon(backImg);
+		JButton backButton = new JButton("", backIcon);
+		Image payImg = paybfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon payIcon = new ImageIcon(payImg);
+		JButton pay = new JButton("", payIcon);
 		JPanel southPanel = new JPanel();
 		southPanel.add(backButton);
 		southPanel.add(pay);
@@ -1681,13 +1740,33 @@ public class Aims {
 		JFrame historyFrame = new JFrame();
 		JScrollPane historyUserScrollPane = new JScrollPane();
 		JTextArea historyUserTxt = new JTextArea();
-		JButton deleteHistory = new JButton("Delete");
-		JButton saveHistory = new JButton("Save");
-		JButton backButton = new JButton("Back");
-		JPanel menuHisitory = new JPanel();
-		menuHisitory.add(backButton);
-		menuHisitory.add(saveHistory);
-		menuHisitory.add(deleteHistory);
+		BufferedImage backbfImg = null;
+		BufferedImage savebfImg = null;
+		BufferedImage deletebfImg = null;
+		try {
+			backbfImg = ImageIO.read(new File("label_item\\back.png"));
+			savebfImg = ImageIO.read(new File("label_item\\save.png"));
+			deletebfImg = ImageIO.read(new File("label_item\\delete.png"));
+
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		Image backImg = backbfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon backIcon = new ImageIcon(backImg);
+		JButton backButton = new JButton("", backIcon);
+		
+		Image saveImg = savebfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon saveIcon = new ImageIcon(saveImg);
+		JButton saveHistory = new JButton("", saveIcon);
+		
+		Image deleteImg = deletebfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon deleteIcon = new ImageIcon(deleteImg);
+		JButton deleteHistory = new JButton("", deleteIcon);
+		JPanel menuHistory = new JPanel();
+		menuHistory.add(backButton);
+		menuHistory.add(saveHistory);
+		menuHistory.add(deleteHistory);
 		historyUserScrollPane.setViewportView(historyUserTxt);
 		try {
 			dataUserReader = new BufferedReader(new FileReader(fhisUser));
@@ -1798,7 +1877,7 @@ public class Aims {
 			}
 		});
 		historyFrame.add(historyUserScrollPane);
-		historyFrame.add(menuHisitory, BorderLayout.SOUTH);
+		historyFrame.add(menuHistory, BorderLayout.SOUTH);
 		historyFrame.setPreferredSize(new Dimension(1650, 825));
 		historyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		historyFrame.pack();

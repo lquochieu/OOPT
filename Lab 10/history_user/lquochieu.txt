@@ -455,3 +455,23 @@ The total is: 21$
 
 -----------------------------------------------------------
 
+05 16 2021 
+
+Title: You gifted, i am too
+Category: Soft skill
+Cost: 10.0$
+Lenght: 200 pages
+Id: 2000 
+
+
+Title: Anohana
+Category: Romcom
+Cost: 7.0$
+Lenght: 150 pages
+Id: 2001 
+
+
+The total is: 51$
+
+-----------------------------------------------------------
+
