@@ -336,10 +336,12 @@ public class Aims {
 				try {
 					if(!checkShop) {
 						listProduct();
+						checkShop = true;
 					}
-					listFrame.setVisible(true);
-					status = false;
-					checkShop = true;
+						listFrame.repaint();
+						listFrame.pack();
+						listFrame.setVisible(true);
+						status = false;
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -491,13 +493,26 @@ public class Aims {
 		JButton displayButton = new JButton("List items");
 		JButton historyButton = new JButton("History order");
 		JButton logoutButton = new JButton("Log out");
-		panel.setLayout(new GridLayout(6, 1));
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gcWelcome = new GridBagConstraints();
 		panel.setBorder(new EmptyBorder(new Insets(150, 200, 150, 200)));
-		panel.add(createButton);
-		panel.add(listProductButton);
-		panel.add(displayButton);
-		panel.add(historyButton);
-		panel.add(logoutButton);
+		gcWelcome.weightx = 1;
+		gcWelcome.weighty = 1;
+		gcWelcome.gridx = 0;
+		gcWelcome.gridy = 0;
+		panel.add(createButton, gcWelcome);
+		gcWelcome.gridx = 1;
+		gcWelcome.gridy = 0;
+		panel.add(listProductButton, gcWelcome);
+		gcWelcome.gridx = 2;
+		gcWelcome.gridy = 0;
+		panel.add(displayButton, gcWelcome);
+		gcWelcome.gridx = 0;
+		gcWelcome.gridy = 1;
+		panel.add(historyButton, gcWelcome);
+		gcWelcome.gridx = 1;
+		gcWelcome.gridy = 1;
+		panel.add(logoutButton, gcWelcome);
 		bookPanels[0] = new JPanel();
 		bookPanels[1] = new JPanel();
 		try {
@@ -616,21 +631,32 @@ public class Aims {
 		JButton searchButton = new JButton("Enter");
 		JButton backButton = new JButton("Back");
 		JPanel southPanel = new JPanel();
-		
-		DefaultComboBoxModel searchComboBoxMode = new DefaultComboBoxModel();
-		searchComboBoxMode.addElement("");
-		for(int i = 0; i < item.size(); ++i) {
-			searchComboBoxMode.addElement(item.get(i));
-		}
-		JComboBox searchComboBox = new JComboBox(searchComboBoxMode);
-		searchComboBox.setEditable(true);
-		JTextField searchTextField = (JTextField) searchComboBox.getEditor().getEditorComponent();
-		
+		JTextField searchTextField = new JTextField(20);
+		JLabel categoryLabel = new JLabel("Category");
+		JButton filterCategoryButton = new JButton("Filter");
+//		DefaultComboBoxModel searchModel = new DefaultComboBoxModel();
+//		searchModel.addElement("");
+//		for(int i = 0; i < item.size(); ++i) {
+//			searchModel.addElement(item.get(i));
+//		}
+//		JComboBox searchComboBox = new JComboBox(searchModel);
+//		JTextField searchTextField = (JTextField) searchComboBox.getEditor().getEditorComponent();
+//		searchTextField.setEditable(true);
+		DefaultComboBoxModel categoryModel = new DefaultComboBoxModel();
+		categoryModel.addElement("All");
+		categoryModel.addElement("Book");
+		categoryModel.addElement("Compact Disc");
+		categoryModel.addElement("Digital Video Disc");
+		JComboBox categoryComboBox = new JComboBox(categoryModel);
+		JTextField categoryText = (JTextField) categoryComboBox.getEditor().getEditorComponent();
 		searchPanel.add(searLabel);
-		searchPanel.add(searchComboBox);
+		searchPanel.add(searchTextField);
 		searchPanel.add(searchButton);
+		searchPanel.add(categoryLabel);
+		searchPanel.add(categoryComboBox);
+		searchPanel.add(filterCategoryButton);
 		listgc.fill = GridBagConstraints.HORIZONTAL;
-		listgc.gridwidth = 3;
+		listgc.gridwidth = 6;
 		
 		listgc.ipadx = 200;
 		listgc.gridx = 0;
@@ -694,6 +720,37 @@ public class Aims {
 				listFrame.setVisible(false);
 			}
 		});
+		filterCategoryButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					listPanel.removeAll();
+					if(categoryText.getText().equals("All")) {
+						addBook();
+						addCd();
+						addDvd();
+					}
+					else if(categoryText.getText().equals("Book")){
+						addBook();
+					}
+					else if(categoryText.getText().equals("Compact Disc")) {
+							addCd();
+						}
+					else {
+						addDvd();
+					}
+					listPanel.repaint();
+					listFrame.repaint();
+					listFrame.pack();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		listFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent windowEvent) {
 				listFrame.setVisible(false);
@@ -706,6 +763,7 @@ public class Aims {
 		listFrame.add(searchPanel, BorderLayout.NORTH);
 		listFrame.add(vJScrollPane, BorderLayout.CENTER);
 		listFrame.add(southPanel, BorderLayout.SOUTH);
+		listFrame.repaint();
 		listFrame.setPreferredSize(new Dimension(1650, 825));
 		listFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		listFrame.pack();
@@ -1325,44 +1383,7 @@ public class Aims {
 			final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
 			tableDisplay.setRowSorter(sorter);
 				
-				pay.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						if(checkOrder) {
-							if(date.size() > 0) {
-								if(rd.size()>0) {
-									labelOrder.add("You got free a random lucky item is '" + date.get(rd.get(a)).getMedia().getTitle()+ "'\nThe total is: " + format.format(cost) + "$");
-								}
-								else {
-									labelOrder.add("The total is: " + format.format(cost) + "$");
-								}
-								gcDisplay.gridx = 0;
-								gcDisplay.gridy = 3;
-								gcDisplay.anchor = GridBagConstraints.SOUTH;
-								displayPanel.add(freeItem, gcDisplay);
-								disPlayFrame.pack();
-								disPlayFrame.repaint();
-								listFrame.setVisible(false);
-								checkOrder = false;
-								cost = 0;
-								writeDataUser();
-							} else {
-								JOptionPane.showMessageDialog(null, "Let add item to pay!", "System", JOptionPane.INFORMATION_MESSAGE);
-							}
-						}
-						
-					}
-				});
-				backButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						disPlayFrame.setVisible(false);
-					}
-				});
+				
 				
 			gcDisplay.gridx = 0;
 			gcDisplay.gridy = 0;
@@ -1373,7 +1394,7 @@ public class Aims {
 			gcDisplay.anchor = GridBagConstraints.CENTER;
 			displayPanel.add(new JScrollPane(tableDisplay), gcDisplay);
 			gcDisplay.gridx = 0;
-			gcDisplay.gridy = 2;
+			gcDisplay.gridy = 3;
 			gcDisplay.anchor = GridBagConstraints.SOUTHWEST;
 			displayPanel.add(southPanel, gcDisplay);
 		
@@ -1383,16 +1404,49 @@ public class Aims {
 	        panel.add(label, BorderLayout.WEST);
 	        JTextField filterText = new JTextField("");
 	        panel.add(filterText, BorderLayout.CENTER);
-	        JButton button = new JButton("Filter");
-	        panel.add(button, BorderLayout.EAST);
+	        JButton filterbutton = new JButton("Filter");
+	        panel.add(filterbutton, BorderLayout.EAST);
 	        
-	        
+	        JPanel playPanel = new JPanel();
+	        DefaultComboBoxModel playModel = new DefaultComboBoxModel();
+	        playModel.addElement("");
+	        for(int i = 0; i < cd.size(); ++i) {
+	        	if(cd.get(i).getNums() > 0) {
+	        		playModel.addElement(cd.get(i).getTitle());
+	        	}
+	        }
+	        for(int i = 0; i < dvd.size(); ++i) {
+	        	if(dvd.get(i).getNums() > 0) {
+	        		playModel.addElement(dvd.get(i).getTitle());
+	        	}
+	        }
+	        JComboBox playComboBox = new JComboBox(playModel);
+	        playComboBox.setEditable(true);
+	        final JTextField playText = (JTextField) playComboBox.getEditor().getEditorComponent();
+	        playText.addKeyListener(new KeyAdapter() {
+	        	public void keyReleased(KeyEvent e) {
+	        		LinkedList<String> filterPlay = new LinkedList<String>();
+	        		for(int i = 0; i < playModel.getSize(); ++i) {
+	        			if((playModel.getElementAt(i)+"").contains(playText.getText())) {
+	        				filterPlay.add(playModel.getElementAt(i)+"");
+	        			}
+	        		}
+	        		if(filterPlay.size() > 0) {
+	        			playComboBox.setModel(new DefaultComboBoxModel(filterPlay.toArray()));
+	        			playComboBox.setSelectedItem(playText.getText());
+	        			playComboBox.showPopup();
+	        		}
+	        		else {
+						playComboBox.hidePopup();
+					}
+	        	}
+			});
 	        BufferedImage biDisplay = null;
 	        Image imgDisplay= null;
 	        ImageIcon iconDisplay = null;
 	        try {
 				biDisplay = ImageIO.read(new File("label_item\\playButton.png"));
-				imgDisplay = biDisplay.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+				imgDisplay = biDisplay.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 				iconDisplay = new ImageIcon(imgDisplay);
 				
 			} catch (IOException e1) {
@@ -1401,43 +1455,51 @@ public class Aims {
 			}
 	        JButton displayButton = new JButton();
 	        displayButton.setIcon(iconDisplay);
-	        
+	        playPanel.add(playComboBox);
+	        playPanel.add(displayButton);
+	        gcDisplay.gridy = 2;
+			gcDisplay.gridx = 0;
+			gcDisplay.anchor = GridBagConstraints.CENTER;
+	        displayPanel.add(playPanel, gcDisplay);
 	        displayButton.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					boolean a = false;
-			        for(int i = 0; i < cd.size(); ++i) {
-			        	if(cd.get(i).getNums() > 0) {
-			        		a = true;
-			        		try {
-								cd.get(i).play();
-								cd.get(i).startPlay();
-							} catch (PlayerException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+					if(!checkOrder) {
+						if(playModel.getSize() <= 1) {
+							JOptionPane.showMessageDialog(null, "You don't have any cd or dvd!", "System", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else {
+							for(int i = 0; i < cd.size(); ++i) {
+								if(cd.get(i).getTitle().equals(playText.getText())) {
+									try {
+										cd.get(i).play();
+										cd.get(i).startPlay();
+									} catch (PlayerException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								}
 							}
-			        	}
-			        }
-			        for(int i = 0; i < dvd.size(); ++i) {
-			        	if(dvd.get(i).getNums() > 0) {
-			        		a = true;
-			        		try {
-								dvd.get(i).play();
-								dvd.get(i).startPlay();
-							} catch (PlayerException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+							for(int i = 0; i < dvd.size(); ++i) {
+								if(dvd.get(i).getTitle().equals(playText.getText())) {
+									try {
+										dvd.get(i).play();
+										dvd.get(i).startPlay();
+									} catch (PlayerException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								}
 							}
-			        	}
-			        }
-			        if(!a) {
-			        	JOptionPane.showMessageDialog(null, "You don't have any item cd or dvd to display", "System", JOptionPane.INFORMATION_MESSAGE);
-			        }
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Please pay to display item!", "System", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			});
-	        button.addActionListener(new ActionListener() {
+	        filterbutton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                String text = filterText.getText();
 	                if (text.length() == 0) {
@@ -1451,7 +1513,44 @@ public class Aims {
 	                }
 	            }
 	        });
-	    disPlayFrame.add(displayButton, BorderLayout.EAST);
+	        pay.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					if(checkOrder) {
+						if(date.size() > 0) {
+							if(rd.size()>0) {
+								labelOrder.add("You got free a random lucky item is '" + date.get(rd.get(a)).getMedia().getTitle()+ "'\nThe total is: " + format.format(cost) + "$");
+							}
+							else {
+								labelOrder.add("The total is: " + format.format(cost) + "$");
+							}
+							gcDisplay.gridx = 0;
+							gcDisplay.gridy = 4;
+							gcDisplay.anchor = GridBagConstraints.SOUTH;
+							displayPanel.add(freeItem, gcDisplay);
+							disPlayFrame.pack();
+							disPlayFrame.repaint();
+							listFrame.setVisible(false);
+							checkOrder = false;
+							cost = 0;
+							writeDataUser();
+						} else {
+							JOptionPane.showMessageDialog(null, "Let add item to pay!", "System", JOptionPane.INFORMATION_MESSAGE);
+						}
+					}
+					
+				}
+			});
+			backButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					disPlayFrame.setVisible(false);
+				}
+			});
 	    disPlayFrame.add(panel, BorderLayout.NORTH);    
 		disPlayFrame.add(displayPanel);
 		disPlayFrame.setPreferredSize(new Dimension(1650, 825));
