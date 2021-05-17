@@ -261,7 +261,7 @@ public class Aims {
 		welcome();
 	}
 	
-	public static void login() throws IOException {
+	public static void login() throws IOException { // frame login
 		
 		
 		JLabel welcomLabel = new JLabel("Welcom to my store", JLabel.CENTER);
@@ -273,6 +273,10 @@ public class Aims {
 		
 		JButton loginButton = new JButton("Login");
 		JButton registerButton = new JButton("Register");
+		loginButton.setBounds(10, 10, 200, 30);
+		loginButton.setBackground(Color.CYAN);
+		registerButton.setBounds(10, 10, 200, 30);
+		registerButton.setBackground(Color.CYAN);
 		JButton shopButton = new JButton();
 		BufferedImage shopbfImg = ImageIO.read(new File("label_item\\shop.jpg"));
 		Image shopImg = shopbfImg.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -303,7 +307,11 @@ public class Aims {
 		gclogin.gridx = 3;
 		loginPanel.add(registerButton, gclogin);
 		
-		
+//		loginFrame.setBackground(new Color(255, 255, 255));
+//		BufferedImage naturalbfi = ImageIO.read(new File("label_item\\natural.jpg"));
+//		Image natrualdImg = naturalbfi.getScaledInstance(600, 600, Image.SCALE_SMOOTH);
+//		ImageIcon naturalImg = new ImageIcon(naturalbfi);
+//		loginFrame.add(new JLabel(naturalImg));
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -358,7 +366,7 @@ public class Aims {
 		loginFrame.setVisible(true);
 		
 	}
-	public static void register() {
+	public static void register() { // register account 
 		JLabel welcomLabel = new JLabel("Welcom to my store", JLabel.CENTER);
 		welcomLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
         welcomLabel.setForeground(Color.RED);
@@ -367,7 +375,9 @@ public class Aims {
 		JLabel password = new JLabel("Pass word");
 		JLabel repeatpassword = new JLabel("Repeat password");
 		JButton registerButton = new JButton("Register");
-		JButton backButton = new JButton("Back");
+		registerButton.setBounds(10, 10, 200, 30);
+		registerButton.setBackground(Color.CYAN);
+//		JButton backButton = new JButton("Back");
 		JTextField registerUsername = new JTextField(20);
 		JPasswordField registerPassword = new JPasswordField(20);
 		JPasswordField registerRepeatPassword = new JPasswordField(20);
@@ -398,8 +408,13 @@ public class Aims {
 		gclogin.gridx = 3;
 		gclogin.gridy = 4;
 		registerPanel.add(registerButton, gclogin);
-		gclogin.gridx = 2;
-		registerPanel.add(backButton, gclogin);
+//		gclogin.gridx = 2;
+//		registerPanel.add(backButton, gclogin);
+//		gclogin.gridwidth = 3;
+//		gclogin.gridx = 0;
+//		gclogin.gridy = 6;
+		registerPanel.setBorder(new EmptyBorder(new Insets(150, 200, 150, 200)));
+		registerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
 		registerButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -456,26 +471,31 @@ public class Aims {
 						else {
 							registerFrame.remove(existNameLabel);
 							registerFrame.remove(checkRegisterLabel);
-							checkRegisterLabel.setText("You need make sure  both the username and the passwor are greater than 6 characters");					}
+							if(registerUsername.getText().length() < 6 || registerPassword.getText().length() < 6) {
+								checkRegisterLabel.setText("You need make sure  both the username and the passwor are greater than 6 characters");					
+							} else {
+								checkRegisterLabel.setText("Two password don't match");					
+							}
 					        checkRegisterLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
-					        registerFrame.add(checkRegisterLabel);
+					        registerFrame.add(checkRegisterLabel, BorderLayout.SOUTH);
 					        registerFrame.repaint();
 						    registerFrame.pack();
 						    registerFrame.setVisible(true);
-						}   
+						    }   
+						}
 			}
 		});
-		backButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				registerFrame.setVisible(false);
-			}
-		});
+//		backButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				registerFrame.setVisible(false);
+//			}
+//		});
 		checkRegisterLabel = new JLabel();
 		existNameLabel = new JLabel();
-		registerFrame.add(registerPanel);
+		registerFrame.add(registerPanel, BorderLayout.CENTER);
 		registerFrame.add(existNameLabel, BorderLayout.AFTER_LINE_ENDS);
 		registerFrame.add(checkRegisterLabel, BorderLayout.SOUTH);
 		registerFrame.add(welcomLabel, BorderLayout.NORTH);
@@ -484,7 +504,7 @@ public class Aims {
 		registerFrame.repaint();
 		registerFrame.pack();
 	}
-	public static void welcome() throws IOException {		
+	public static void welcome() throws IOException { // frame after login		
 		BufferedImage createbfImg = ImageIO.read(new File("label_item\\order.png"));
 		Image createImg = createbfImg.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		ImageIcon createIcon = new ImageIcon(createImg);
@@ -601,14 +621,14 @@ public class Aims {
 		});
 		frame.setTitle("Order Management Application");
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		frame.setPreferredSize(new Dimension(1650, 825));
+		frame.setPreferredSize(new Dimension(1550, 825));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(false);
 		
 	}
 	
-	public static void createOrder() {
+	public static void createOrder() {// create a new order 
 		//after bought item and paid it
 		boolean opt = true;
 		if(checkOrder && date.size() > 0) {
@@ -643,7 +663,7 @@ public class Aims {
 		}
 		
 	}
-	public static void listProduct() throws IOException {
+	public static void listProduct() throws IOException { // show items in shop
 		listPanel.setLayout(new GridBagLayout());
 		JPanel searchPanel = new JPanel();
 		JLabel searLabel = new JLabel("Search ");
@@ -793,7 +813,7 @@ public class Aims {
 		listFrame.add(vJScrollPane, BorderLayout.CENTER);
 		listFrame.add(southPanel, BorderLayout.SOUTH);
 		listFrame.repaint();
-		listFrame.setPreferredSize(new Dimension(1650, 825));
+		listFrame.setPreferredSize(new Dimension(1550, 825));
 		listFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		listFrame.pack();
 	}
@@ -1316,7 +1336,7 @@ public class Aims {
 		
 	}
 	
-	public static void DemoDisplay(String data, hust.soict.cttn.aims.media.Media media) throws IOException {
+	public static void DemoDisplay(String data, hust.soict.cttn.aims.media.Media media) throws IOException {//trailer cd or dvd
 		JFrame demoPlay = new JFrame();
 		BufferedImage demoPlayImage = null;
 		demoPlayImage = ImageIO.read(new File(data));
@@ -1325,7 +1345,7 @@ public class Aims {
 		JLabel picPlayLabel = new JLabel();
 		picPlayLabel.setIcon(imgIconPlay);
 		JTextArea playtxt = new JTextArea();
-		playtxt.setText("Playing Disc: " + media.getTitle() +" \nDisc length: " + media.getLength() +" minutes\n");
+		playtxt.setText("Playing Disc: " + media.getTitle() +" \nDisc length: " + media.getLength());
 		playtxt.setEditable(false);
 		JPanel demoPlayPanel = new JPanel();
 		demoPlayPanel.add(picPlayLabel, BorderLayout.CENTER);
@@ -1336,7 +1356,7 @@ public class Aims {
 		demoPlay.pack();
 		demoPlay.setVisible(true);
 	}
-	public static void displayProduct() throws PlayerException {
+	public static void displayProduct() throws PlayerException {//list item you selected in this order
 		JFrame disPlayFrame = new JFrame();
 		JPanel displayPanel = new JPanel();
 		JLabel freeItem;
@@ -1406,7 +1426,7 @@ public class Aims {
 			}
 			LinkedList<Float> random = new LinkedList<Float>();
 			LinkedList<Integer> rd = new LinkedList<Integer>();
-			if(checkOrder) {
+			if(checkOrder) {// this event pick  random free one item if hava at least one item hava a price lower than 1/10 all price of item
 				if(date.size()>0) {
 					for(int i = 0; i < date.size(); ++i) {
 						if(date.get(i).getMedia().getCost() < cost/10) {
@@ -1434,7 +1454,7 @@ public class Aims {
 				freeItem.setFont(new Font("Helvetica", Font.PLAIN, 30));
 			}
 			
-			JTable tableDisplay = new JTable(model);
+			JTable tableDisplay = new JTable(model); // table contain list item you selected in this order
 			tableDisplay.getColumnModel().getColumn(0).setPreferredWidth(100);
 			String.format("Lead Selection: %d, %d. ",
 		    		tableDisplay.getSelectionModel().getLeadSelectionIndex(),
@@ -1459,7 +1479,7 @@ public class Aims {
 		
 			JPanel panel = new JPanel(new BorderLayout());
 			panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 10));
-	        JLabel label = new JLabel("Search");
+	        JLabel label = new JLabel("Search"); // search item you seclected in this order
 	        panel.add(label, BorderLayout.WEST);
 	        JTextField filterText = new JTextField("");
 	        panel.add(filterText, BorderLayout.CENTER);
@@ -1512,7 +1532,7 @@ public class Aims {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	        JButton displayButton = new JButton();
+	        JButton displayButton = new JButton(); // display cd or dvd
 	        displayButton.setIcon(iconDisplay);
 	        playPanel.add(playComboBox);
 	        playPanel.add(displayButton);
@@ -1558,7 +1578,7 @@ public class Aims {
 					}
 				}
 			});
-	        filterbutton.addActionListener(new ActionListener() {
+	        filterbutton.addActionListener(new ActionListener() { // filter item in table
 	            public void actionPerformed(ActionEvent e) {
 	                String text = filterText.getText();
 	                if (text.length() == 0) {
@@ -1572,7 +1592,7 @@ public class Aims {
 	                }
 	            }
 	        });
-	        pay.addActionListener(new ActionListener() {
+	        pay.addActionListener(new ActionListener() { // pay all item you seclected
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -1612,7 +1632,7 @@ public class Aims {
 			});
 	    disPlayFrame.add(panel, BorderLayout.NORTH);    
 		disPlayFrame.add(displayPanel);
-		disPlayFrame.setPreferredSize(new Dimension(1650, 825));
+		disPlayFrame.setPreferredSize(new Dimension(1550, 825));
 		disPlayFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		disPlayFrame.repaint();
 		disPlayFrame.pack();
@@ -1620,7 +1640,7 @@ public class Aims {
 		
 	}
 	
-	public static void searchProduct(String nameItem) throws IOException {
+	public static void searchProduct(String nameItem) throws IOException { // search item to buy
 		
 		int a = book.size();
 		for(int i = 0; i < book.size(); ++i) {
@@ -1656,7 +1676,7 @@ public class Aims {
 		listPanel.repaint();
 	}
     
-	private static void user() throws IOException {
+	private static void user() throws IOException { //handing information login
 		// TODO Auto-generated method stub
 				incorrectLabel.setText("Username or password incorrect!");
 				incorrectLabel.setFont(new Font("Helvetica", Font.PLAIN, 30));
@@ -1700,7 +1720,7 @@ public class Aims {
 				}
 				
 	}
-	private static void historyUser() throws IOException {
+	private static void historyUser() throws IOException { // open history of user contain information of items you ordered before
 
 		// TODO Auto-generated method stub
 		        fhisUser = new File("history_user\\" + usertxt.getText() + ".txt");
@@ -1712,7 +1732,7 @@ public class Aims {
 		
 	}
 	
-	private static void writeDataUser() {
+	private static void writeDataUser() { // save history user
 		try {
 			bfr.write(date.get(0).getDate() +" \n\n");
 			for(int i = 0; i < date.size(); ++i) {
@@ -1736,7 +1756,10 @@ public class Aims {
 		}
 	}
 	
-	public static void historyOrder() {
+	/**
+	 * 
+	 */
+	public static void historyOrder() { //show history order
 		JFrame historyFrame = new JFrame();
 		JScrollPane historyUserScrollPane = new JScrollPane();
 		JTextArea historyUserTxt = new JTextArea();
@@ -1833,6 +1856,11 @@ public class Aims {
 					e1.printStackTrace();
 				}
 				bfr = new BufferedWriter(fr);
+				historyUserScrollPane.repaint();
+				historyFrame.repaint();
+				historyFrame.pack();
+				historyFrame.setVisible(false);
+				historyFrame.setVisible(true);
 			}
 		});
 		
@@ -1874,11 +1902,15 @@ public class Aims {
 					e1.printStackTrace();
 				}
 				bfr = new BufferedWriter(fr);
+				historyUserTxt.setText("");
+//				historyFrame.repaint();
+//				historyFrame.pack();
+//				historyFrame.setVisible(true);
 			}
 		});
 		historyFrame.add(historyUserScrollPane);
 		historyFrame.add(menuHistory, BorderLayout.SOUTH);
-		historyFrame.setPreferredSize(new Dimension(1650, 825));
+		historyFrame.setPreferredSize(new Dimension(1550, 825));
 		historyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		historyFrame.pack();
 		historyFrame.setVisible(true);

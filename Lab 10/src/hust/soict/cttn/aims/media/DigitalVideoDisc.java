@@ -72,6 +72,9 @@ public class DigitalVideoDisc extends Disc implements Playable, Comparable{
 			}
 		}
 	}
+	public ArrayList<Track> getTrack() {
+		return this.tracks;
+	}
 	public void setTracks(ArrayList<Track> tracks) {
 		this.tracks = tracks;
 	}
