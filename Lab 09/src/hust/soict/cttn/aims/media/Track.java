@@ -18,7 +18,8 @@ public class Track implements Playable, Comparable{
 	private String title;
 	private int length;
 	private String url;
-	
+	private String playDisk ="";
+
 	public void play() {
 		JFrame demoPlay = new JFrame();
 		JLabel displayLabel1 = new JLabel();
@@ -36,6 +37,9 @@ public class Track implements Playable, Comparable{
 		System.out.println("Playing Disc: " + this.getTitle());
 		System.out.println("Disc length: " + this.getLength());
 		}
+	public String getPlayDisk() {
+		return this.playDisk;
+	}
 	public String getTitle() {
 		return title;
 	}

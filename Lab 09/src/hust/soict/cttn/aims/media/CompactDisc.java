@@ -1,7 +1,14 @@
 package hust.soict.cttn.aims.media;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 
 public class CompactDisc extends Disc implements Playable{
 	private String artist;
@@ -12,13 +19,39 @@ public class CompactDisc extends Disc implements Playable{
 		this.title = title;
 		// TODO Auto-generated constructor stub
 	}
-	
+	LinkedList<String> playCD = new LinkedList<String>();	
+	JFrame playFrame = new JFrame();
+
+	boolean checkPlay = false;
 	public void play() {
-			java.util.Iterator iter = tracks.iterator();
-			while(iter.hasNext()) {
-				Track track = (Track) iter.next();
-				track.play();
-			}
+		if(!checkPlay) {
+				java.util.Iterator iter = tracks.iterator();
+				Track nexTrack = null;
+				while(iter.hasNext()) {
+					nexTrack = (Track) iter.next();
+					try {
+						nexTrack.play();
+						playCD.add(nexTrack.getPlayDisk());
+					} catch (Exception e) {
+						throw e;
+					}
+				}
+				checkPlay = true;
+				JTextArea playTxt = new JTextArea();
+				JScrollPane textScrollPane = new JScrollPane(playTxt);
+				for(int i = 0; i < playCD.size(); ++i) {
+					playTxt.setText(playTxt.getText() + playCD.get(i) + " \n\n");
+				}
+				playFrame.add(textScrollPane);
+				playFrame.setPreferredSize(new Dimension(650, 600));
+				playFrame.pack();
+				
+			
+		}
+	}
+	
+	public void startPlay() {
+		playFrame.setVisible(true);
 	}
 	
 	public boolean checkTracks() {
@@ -29,11 +62,11 @@ public class CompactDisc extends Disc implements Playable{
 		}
 		return false;
 	}
-	public void addTrack() {
+	public void addTrack(String title, int length) {
 		track = new Track(title, length);
 		boolean a = false;
 		for(int i = 0; i < tracks.size(); ++i) {
-			if(this.title.equals(tracks.get(i).getTitle())) {
+			if(title.equals(tracks.get(i).getTitle())) {
 				a = true;
 			}
 		}
